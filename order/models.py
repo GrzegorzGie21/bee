@@ -14,8 +14,14 @@ class Order(models.Model):
     def calculate_number(self):
         return str(self.pk) + '/' + str(self.date.month) + '/' + str(self.date.year)
 
+    def __str__(self):
+        return f'{self.date} by {self.user.last_name}'
+
 
 class OrderProducts(models.Model):
     product = models.ForeignKey('product.Product', on_delete=models.CASCADE)
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     quantity = models.PositiveSmallIntegerField()
+
+    def __str__(self):
+        return f'Product {self.product.name} with {self.quantity} units'
