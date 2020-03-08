@@ -15,9 +15,9 @@ class Car(models.Model):
 
     # tutaj nadpisanie funckcji save(), ktora mi zaktualizuje odometer
 
-    def get_odometer(self):
-        mileage = Mileage.objects.filter(car_id=self.pk).order_by('-date').first()
-        return mileage.end_day_odometer
+    def update_odometer(self):
+        self.odometer = Mileage.objects.filter(car_id=self.pk).order_by('-date').first().end_day_odometer
+        return self.odometer
 
     def __str__(self):
         return f'{self.manufacturer} {self.model}: {self.registration_number}'
