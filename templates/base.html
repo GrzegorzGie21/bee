@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>
+    {% block page_title %}
+      Home Page
+    {% endblock %}
+  </title>
+</head>
+<body>
+{% block content %}
+  {% block content_title %}
+    <h1>Home page</h1>
+  {% endblock %}
+  {% block forloop %}
+    <ul>
+      {% for object in object_list %}
+        {% block element %}
+          <li>{{ object|default:'Test object name' }}</li>
+        {% endblock %}
+      {% empty %}
+        <h3>There is no items!</h3>
+      {% endfor %}
+    </ul>
+  {% endblock %}
+{% endblock %}
+
+</body>
+</html>
