@@ -48,4 +48,4 @@ class Employee(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.work_station} {self.user.last_name}'
+        return f'{self.get_work_station_display()} {self.user.last_name}'

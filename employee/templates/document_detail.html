@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+  Document detail:
+{% endblock %}
+{% block content %}
+  {% block content_title %}
+    <h2>Document {{ document.user.last_name }}:</h2>
+  {% endblock %}
+  <li>{{ document.title }}</li>
+  <li>{{ document.created_date }}</li>
+  <li>{{ document.get_type_display }}</li>
+{% endblock %}
