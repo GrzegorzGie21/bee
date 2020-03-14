@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block page_title %}
+  Car detail
+{% endblock %}
+
+{% block content %}
+  {% block content_title %}
+    <h2>Car detail: {{ car.manufacturer }} {{ car.model }}</h2>
+  {% endblock %}
+  <ul>
+    <li>{{ car.registration_number }}</li>
+    <li>{{ car.manufacture_year }}</li>
+    <li>{{ car.odometer }}</li>
+  </ul>
+
+{% endblock %}
