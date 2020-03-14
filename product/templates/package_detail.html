@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+  Package detail
+{% endblock %}
+{% block content %}
+  {% block content_title %}
+    <h2>Package {{ package.name }}:</h2>
+  {% endblock %}
+  <ul>
+    <li>{{ package.get_type_display }}</li>
+    <li>{{ package.get_capacity_type_display }}</li>
+  </ul>
+{% endblock %}

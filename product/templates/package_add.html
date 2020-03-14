@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block page_title %}
+  Add package
+{% endblock %}
+{% block content %}
+  {% block content_title %}
+    <h2>Add package:</h2>
+  {% endblock %}
+  <form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" value="add package">
+  </form>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+  Delete promotion
+{% endblock %}
+{% block content %}
+  {% block content_title %}
+    <h2>Delete promotion {{ promotion }}:</h2>
+  {% endblock %}
+  <form method="post">
+    {% csrf_token %}
+    <h4>Are you sure to delete this promotion?</h4>
+    <input type="submit" value="yes">
+  </form>
+{% endblock %}

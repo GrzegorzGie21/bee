@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+  Product detail
+{% endblock %}
+{% block content %}
+  {% block content_title %}
+    <h2>Product {{ product.name }}:</h2>
+  {% endblock %}
+  <ul>
+    {% if product.have_promotion %}
+      <li>{{ product.calculate_net_price }} (promotion price)</li>
+    {% else %}
+      <li>{{ product.net_price }}</li>
+    {% endif %}
+    <li>{{ product.get_vat_display }}</li>
+    <li>{{ product.packages }}</li>
+  </ul>
+  {#  {% block forloop %}#}
+  {#    <ul>#}
+  {#      {% for package in product.packages.objects.all %}#}
+  {#        {{ package.get_type_display }}#}
+  {#      {% endfor %}#}
+  {#    </ul>#}
+  {#  {% endblock %}#}
+  {#    <form method="post">#}
+  {#    {% csrf_token %}#}
+  {#    {{ form|crispy }}#}
+  {#        <input type="submit" value="add product">#}
+  {#    </form>#}
+{% endblock %}
