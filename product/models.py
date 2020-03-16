@@ -6,8 +6,8 @@ class Promotion(models.Model):
     discount = models.DecimalField(max_digits=3, decimal_places=2, default=1.0,
                                    help_text='Describe promotion value i.e. 1 means no promotion, 0.95 means 5% discount')
     start_date = models.DateField()
-    end_date = models.DateField()
-    product = models.ForeignKey('Product', on_delete=models.CASCADE)
+    end_date = models.DateField(blank=True, null=True)
+    # product = models.ForeignKey('Product', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -27,20 +27,19 @@ class Product(models.Model):
     vat = models.PositiveSmallIntegerField(choices=VAT_VALUES)
     have_promotion = models.BooleanField(default=False)
     packages = models.ForeignKey('Package', on_delete=models.CASCADE)
+    promotion = models.ForeignKey('Promotion', default=1, on_delete=models.SET_DEFAULT)
 
     class Meta:
         unique_together = ['name', 'net_price', 'vat', 'have_promotion', 'packages']
 
     # nadpisać metodę save(), która zaaktualizuje mi net_price
     def get_discount(self):
-        promotion = Promotion.objects.get(product_id=self.id)
-        return promotion.discount
+        if self.have_promotion:
+            return self.promotion.discount
+        return self.promotion.discount
 
     def calculate_net_price(self):
-        if self.have_promotion:
-            self.net_price *= self.get_discount()
-            return self.net_price
-        return self.net_price
+        return round(self.net_price * self.get_discount(), 2)
 
     def __str__(self):
         return f'{self.name} {self.packages.capacity} {self.packages.capacity_type}'
