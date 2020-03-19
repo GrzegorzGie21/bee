@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+  promotion detail
+{% endblock %}
+{% block content %}
+  {% block content_title %}
+    <h2>promotion {{ promotion }}:</h2>
+  {% endblock %}
+  <ul>
+    <li>{{ promotion.discount }}</li>
+    <li>{{ promotion.start_date }}</li>
+    <li>{{ promotion.end_date }}</li>
+    <li>{{ promotion.product }}</li>
+  </ul>
+{% endblock %}
