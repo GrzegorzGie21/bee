@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block page_title %}
+  Update customer address
+{% endblock %}
+{% block content %}
+  {% block content_title %}
+    <h2>Update customer address:</h2>
+  {% endblock %}
+  <form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" value="update">
+  </form>
+{% endblock %}

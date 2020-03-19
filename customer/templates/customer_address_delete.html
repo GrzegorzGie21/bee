@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block page_title %}
+  Delete customer address
+{% endblock %}
+{% block content %}
+  {% block content_title %}
+    <h2>Delete customer address:</h2>
+  {% endblock %}
+  <form method="post">
+    {% csrf_token %}
+    <p>Are you sure do delete {{ object }}</p>
+    <input type="submit" value="confirm">
+  </form>
+{% endblock %}
