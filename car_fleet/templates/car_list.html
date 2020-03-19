@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block page_title %}
+  Car list
+{% endblock %}
+{% block content_title %}
+  <h2>Car list:</h2>
+{% endblock %}
+
+{% block element %}
+  <li>{{ object.manufacturer }} {{ object.model }} {{ object.registration_number }}</li>
+{% endblock %}

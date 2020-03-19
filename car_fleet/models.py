@@ -20,14 +20,14 @@ class Car(models.Model):
         return self.odometer
 
     def __str__(self):
-        return f'{self.manufacturer} {self.model}: {self.registration_number}'
+        return f'{self.manufacturer} {self.model} ({self.registration_number})'
 
 
 class Mileage(models.Model):
     distance = models.PositiveSmallIntegerField(default=0)
     start_day_odometer = models.PositiveIntegerField(default=0)
     end_day_odometer = models.PositiveIntegerField(default=0)
-    date = models.DateField(verbose_name='report_date')
+    date = models.DateField(verbose_name='report date')
     car = models.ForeignKey(Car, on_delete=models.CASCADE)
 
     # w formularzu nadpisac metodę save()

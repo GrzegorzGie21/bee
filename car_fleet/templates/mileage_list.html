@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block page_title %}
+  Mileage list
+{% endblock %}
+{% block content_title %}
+  <h2>Mileage list:</h2>
+{% endblock %}
+{% block forloop %}
+  <ol>
+    {% for mileage in mileage_list %}
+      {% block element %}
+        <li>{{ mileage.car }}:</li>
+        <ul>
+          <li>{{ mileage.date }}: {{ mileage.distance }} km</li>
+        </ul>
+      {% endblock %}
+    {% endfor %}
+  </ol>
+{% endblock %}
+
