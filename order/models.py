@@ -7,12 +7,12 @@ class Order(models.Model):
     number = models.CharField(max_length=20, default='0')
     date = models.DateField()
     products = models.ManyToManyField('product.Product', through='OrderProducts')
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    customer = models.OneToOneField('customer.Customer', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    customer = models.ForeignKey('customer.Customer', on_delete=models.CASCADE)
 
     # nadpisać metodę save(). która mi zaaktualizuje number
     def calculate_number(self):
-        return str(self.pk) + '/' + str(self.date.month) + '/' + str(self.date.year)
+        return str(self.user_id) + '/' + str(self.customer_id) + '/' + str(self.date.month) + '/' + str(self.date.year)
 
     def __str__(self):
         return f'{self.date} by {self.user.last_name}'
