@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+  Employee detail:
+{% endblock %}
+{% block content %}
+  {% block content_title %}
+    <h2>Employee {{ employee.user.last_name }}:</h2>
+  {% endblock %}
+  <li>{{ employee.get_work_station_display }}</li>
+  <li>{{ employee.get_region_display }}</li>
+  <li>{{ employee.phone_number }}</li>
+{% endblock %}
