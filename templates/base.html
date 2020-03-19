@@ -1,7 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
   <title>
     {% block page_title %}
       Home Page
@@ -9,22 +15,106 @@
   </title>
 </head>
 <body>
-{% block content %}
-  {% block content_title %}
-    <h1>Home page</h1>
-  {% endblock %}
-  {% block forloop %}
-    <ul>
-      {% for object in object_list %}
-        {% block element %}
-          <li>{{ object|default:'Test object name' }}</li>
-        {% endblock %}
-      {% empty %}
-        <h3>There is no items!</h3>
-      {% endfor %}
-    </ul>
-  {% endblock %}
-{% endblock %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="#">Bee</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'car-list' %}">Cars <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'customer-list' %}">Customers <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'employee-list' %}">Employees <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'product:product-list' %}">Products <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'order:order-list' %}">Orders <span class="sr-only">(current)</span></a>
+      </li>
+      {#      <li class="nav-item dropdown">#}
+      {#        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+      {#          Cars#}
+      {#        </a>#}
+      {#        <div class="dropdown-menu" aria-labelledby="navbarDropdown">#}
+      {#          <a class="dropdown-item" href="{% url 'car-list' %}"></a>#}
+      {#          <a class="dropdown-item" href="#">Another action</a>#}
+      {#          <div class="dropdown-divider"></div>#}
+      {#          <a class="dropdown-item" href="#">Something else here</a>#}
+      {#        </div>#}
+      {#      </li>#}
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-dark my-2 my-sm-0" type="submit">Login</button>
+    </form>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="col-8">
+    {% block content %}
+      {% block content_title %}
+        <h1>Home page</h1>
+      {% endblock %}
+      {% block table %}
+
+        <table class="table table-hover table-bordered table-dark">
+          <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th colspan="3" scope="col">{% block app_name %}Bee{% endblock %}</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for object in object_list %}
+            <tr>
+              <th scope="row">{{ forloop.counter }}</th>
+              {% block element %}
+                <td>{{ object|default:'Test object name' }}</td>
+              {% endblock %}
+              <td>
+                <a href="{% block edit_url %}{% endblock %}">
+                  <button class="btn btn-info">Edit</button>
+                </a>
+              </td>
+              <td>
+                <a href="{% block delete_url %}{% endblock %}">
+                  <button class="btn btn-warning">Delete</button>
+                </a>
+              </td>
+            </tr>
+          {% empty %}
+            <h3>There is no items!</h3>
+          {% endfor %}
+          </tbody>
+        </table>
+
+
+      {% endblock %}
+    {% endblock %}
+  </div>
+
+</div>
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
 </body>
 </html>
