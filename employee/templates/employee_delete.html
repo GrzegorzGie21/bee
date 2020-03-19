@@ -9,8 +9,12 @@
     <h2>Delete employee:</h2>
   {% endblock %}
   <form method="post">
-  {% csrf_token%}
-    <h3>Are you sure to delete {{ employee}}?</h3>
+    {% csrf_token %}
+    <h3>Are you sure to delete {{ employee }}?</h3>
     <input type="submit" value="confirm">
   </form>
+  <a href="{% url 'employee-list' %}">
+    <button>No</button>
+  </a>
+
 {% endblock %}

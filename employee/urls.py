@@ -2,6 +2,7 @@ from django.urls import path
 from .views import (EmployeeListView, EmployeeCreateView, EmployeeDetailView, EmployeeEditView, EmployeeDeleteView,
                     DocumentListView, DocumentCreateView, DocumentDetailView, DocumentEditView, DocumentDeleteView)
 
+app_name = 'employee'
 urlpatterns = [
     path('', EmployeeListView.as_view(), name='employee-list'),
     path('add/', EmployeeCreateView.as_view(), name='add-employee'),

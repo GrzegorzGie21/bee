@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
+
 {% block content_title %}
   <h3>Customers:</h3>
 {% endblock %}
+{% block app_name %}
+Customer
+{% endblock %}
 {% block element %}
-  <li>{{ object.name }}</li>
+  <td>{{ object.name }}</td>
 {% endblock %}

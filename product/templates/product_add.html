@@ -4,20 +4,30 @@
 {% block page_title %}
   Add product
 {% endblock %}
+
 {% block content %}
-  {% block content_title %}
-    <h2>Add product:</h2>
-  {% endblock %}
-  {#  {% block forloop %}#}
-  {#    <ul>#}
-  {#      {% for package in product.packages.objects.all %}#}
-  {#        {{ package.get_type_display }}#}
-  {#      {% endfor %}#}
-  {#    </ul>#}
-  {#  {% endblock %}#}
-  <form method="post">
-    {% csrf_token %}
-    {{ form|crispy }}
-    <input type="submit" value="add product">
-  </form>
+  <div class="container float-left mr">
+    <div class="row justify-content-start">
+      {% block content_title %}
+        <h2>Add product:</h2>
+      {% endblock %}
+    </div>
+      {% comment %}
+    {% block forloop %}
+      <ul>
+        {% for package in product.packages.objects.all %}
+          {{ package.get_type_display }}
+        {% endfor %}
+      </ul>
+    {% endblock %}
+    {% endcomment %}
+    <div class="row justify-content-start">
+      <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit" value="add product" class="btn btn-primary">
+      </form>
+    </div>
+    </div>
+  </div>
 {% endblock %}

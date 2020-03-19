@@ -4,6 +4,7 @@ env/
 tags
 .idea
 code_examples.py
+templates/table.html
 
 # Created by https://www.gitignore.io/api/django,python,visualstudiocode
 

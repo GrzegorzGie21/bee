@@ -7,7 +7,9 @@
 {% block content_title %}
   <h2>Product list:</h2>
 {% endblock %}
-
+{% block app_name %}
+Products
+{% endblock %}
 {% block element %}
-  <li>{{ object }}</li>
+  <td>{{ object }}</td>
 {% endblock %}

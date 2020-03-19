@@ -7,7 +7,15 @@
 {% block content_title %}
   <h2>Employee list:</h2>
 {% endblock %}
-
+{% block app_name %}
+Employee
+{% endblock %}
 {% block element %}
-  <li>{{ object }}</li>
+  <td>{{ object }}</td>
+{% endblock %}
+{% block edit_url %}
+{% url 'edit-employee' object.pk %}
+{% endblock %}
+{% block delete_url %}
+{% url 'delete-employee' object.pk %}
 {% endblock %}

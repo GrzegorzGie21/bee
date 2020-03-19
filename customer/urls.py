@@ -3,6 +3,7 @@ from customer.views import (CustomerListView, CustomerAddView, CustomerUpdateVie
                             CustomerAddressListView, CustomerAddressAddView, CustomerAddressUpdateView,
                             CustomerAddressDeleteView)
 
+app_name = 'customer'
 urlpatterns = [
     path('', CustomerListView.as_view(), name='customer-list'),
     path('add', CustomerAddView.as_view(), name='add-customer'),

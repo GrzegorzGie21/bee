@@ -5,7 +5,16 @@
 {% block content_title %}
   <h2>Car list:</h2>
 {% endblock %}
+{% block app_name %}
+Cars
+{% endblock %}
+{% block edit_url %}
+{% url 'car:car-detail' object.pk %}
+{% endblock %}
+{% block delete_url %}
+{% url 'car:car-list' %}
 
+{% endblock %}
 {% block element %}
   <li>{{ object.manufacturer }} {{ object.model }} {{ object.registration_number }}</li>
 {% endblock %}
