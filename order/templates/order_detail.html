@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+  Order detail
+{% endblock %}
+{% block content %}
+  {% block content_title %}
+    <h2>Order {{ order }}:</h2>
+  {% endblock %}
+  <ul>
+    {% for order_product in order_products %}
+        <li>{{ order_product.product }} - {{ order_product.quantity }} units</li>
+        {#        <a href="{% url 'product:delete-product' orderproduct.product.id %}"></a>#}
+    {% endfor %}
+  </ul>
+  <br>
+{% endblock %}

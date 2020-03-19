@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block page_title %}
+  Edit order
+{% endblock %}
+{#{% block content %}#}
+{#  {% block content_title %}#}
+{#    <h2>Edit order {{ order }}:</h2>#}
+{#  {% endblock %}#}
+{#  <form method="post">#}
+{#    {% csrf_token %}#}
+{#    {{ form|crispy }}#}
+{#    {{ order_id }}#}
+{#    <input type="submit" value="edit order">#}
+{#  </form>#}
+{#{% endblock %}#}
+
+{% block content %}
+  {% block content_title %}
+    <h2>Edit Order {{ order }}:</h2>
+  {% endblock %}
+  <form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" value="edit order" name="edit_order">
+  </form>
+  <hr>
+  <hr>
+  <p>Products:</p>
+  <ul>
+    {% for order_product in order_products %}
+      <form method="post">
+        {% csrf_token %}
+        <li>{{ order_product.product }} - {{ order_product.quantity }} units</li>
+        {#        <a href="{% url 'product:delete-product' orderproduct.product.id %}"></a>#}
+        <input type="hidden" value="{{ order_product.pk }}" name="product_id">
+        <input type="submit" value="delete" name="delete_product">
+      </form>
+    {% endfor %}
+  </ul>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form2|crispy }}
+    <input type="submit" value="add product" name="add_product">
+  </form>
+{% endblock %}

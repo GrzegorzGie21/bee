@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block page_title %}
+  Add customer
+{% endblock %}
+{% block content %}
+  {% block content_title %}
+    <h2>Add customer:</h2>
+  {% endblock %}
+  <div class="form-row">
+    <form method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input type="submit" value="add customer">
+    </form>
+    <button><a href="{% url 'customer-addresses' %}">add new address</a></button>
+
+  </div>
+{% endblock %}
