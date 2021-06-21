@@ -4,13 +4,35 @@
   promotion detail
 {% endblock %}
 {% block content %}
-  {% block content_title %}
-    <h2>promotion {{ promotion }}:</h2>
-  {% endblock %}
-  <ul>
-    <li>{{ promotion.discount }}</li>
-    <li>{{ promotion.start_date }}</li>
-    <li>{{ promotion.end_date }}</li>
-    <li>{{ promotion.product }}</li>
-  </ul>
+  <div class="card text-white bg-secondary border-dark mb-3 w-75 mt-2">
+    <div class="card-header text-center bg-dark border-light">
+      {% block content_title %}
+        <h2>{{ promotion.name }}</h2>
+      {% endblock %}
+    </div>
+    <div class="card-body text-center">
+      <h5 class="card-title">Details:</h5>
+      <p class="card-text">Start date: {{ promotion.start_date }}</p>
+      {% if promotion.end_date %}
+      <p class="card-text">End date: {{ promotion.end_date }}</p>
+      {% else %}
+      <p class="card-text">Status: active</p>
+      {% endif %}
+      <p class="card-text">Discount: {{ promotion.discount }}</p>
+      <a href="{% url 'product:edit-promotion' promotion.id %}" class="btn btn-sm btn-primary">Edit</a>
+      <a href="{% url 'product:delete-promotion' promotion.id %}" class="btn btn-sm btn-danger">Delete</a>
+    </div>
+    <div class="card-footer text-muted text-center bg-dark border-light">
+      <a href="{% url 'product:promotion-list' %}" class="btn btn-info btn-block">Back</a>
+    </div>
+  </div>
+  {#  {% block content_title %}#}
+  {#    <h2>promotion {{ promotion }}:</h2>#}
+  {#  {% endblock %}#}
+  {#  <ul>#}
+  {#    <li>{{ promotion.discount }}</li>#}
+  {#    <li>{{ promotion.start_date }}</li>#}
+  {#    <li>{{ promotion.end_date }}</li>#}
+  {#    <li>{{ promotion.product }}</li>#}
+  {#  </ul>#}
 {% endblock %}

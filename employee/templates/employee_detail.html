@@ -4,10 +4,29 @@
   Employee detail:
 {% endblock %}
 {% block content %}
-  {% block content_title %}
-    <h2>Employee {{ employee.user.last_name }}:</h2>
-  {% endblock %}
-  <li>{{ employee.get_work_station_display }}</li>
-  <li>{{ employee.get_region_display }}</li>
-  <li>{{ employee.phone_number }}</li>
+  <div class="card text-white bg-secondary border-dark mb-3 w-75 mt-2">
+    <div class="card-header text-center bg-dark border-light">
+      {% block content_title %}
+        <h2>{{ employee.user.last_name }}</h2>
+      {% endblock %}
+    </div>
+    <div class="card-body text-center">
+      <h5 class="card-title">Details:</h5>
+      <p class="card-text">Work station: {{ employee.get_work_station_display }}</p>
+      <p class="card-text">Region: {{ employee.get_region_display }}</p>
+      <p class="card-text">Phone: {{ employee.phone_number }}</p>
+{#      <p class="card-text">Created: {{ document.created_date }}</p>#}
+      <a href="{% url 'employee:edit-employee' employee.id %}" class="btn btn-sm btn-primary">Edit</a>
+      <a href="{% url 'employee:delete-employee' employee.id %}" class="btn btn-sm btn-danger">Delete</a>
+    </div>
+    <div class="card-footer text-muted text-center bg-dark border-light">
+      <a href="{% url 'employee:document-list' %}" class="btn btn-info btn-block">Back</a>
+    </div>
+  </div>
+{#  {% block content_title %}#}
+{#    <h2>Employee {{ employee.user.last_name }}:</h2>#}
+{#  {% endblock %}#}
+{#  <li>{{ employee.get_work_station_display }}</li>#}
+{#  <li>{{ employee.get_region_display }}</li>#}
+{#  <li>{{ employee.phone_number }}</li>#}
 {% endblock %}

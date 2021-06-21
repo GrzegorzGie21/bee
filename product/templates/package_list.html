@@ -1,13 +1,20 @@
 {% extends 'base.html' %}
 
-{% block page_title %}
-  Package list
-{% endblock %}
-
 {% block content_title %}
-  <h2>Package list:</h2>
+  <h3>Packeges:</h3>
 {% endblock %}
-
-{% block element %}
-  <li>{{ object }}</li>
+{% block app_name %}
+  Package
 {% endblock %}
+{% block detail_url %}
+  {% url 'product:package-detail' object.pk %}
+{% endblock %}
+{% block edit_url %}
+  {% url 'product:edit-package' object.pk %}
+{% endblock %}
+{% block delete_url %}
+  {% url 'product:delete-package' object.pk %}
+{% endblock %}
+{#{% block element %}#}
+{#  <td>{{ object.name }}</td>#}
+{#{% endblock %}#}

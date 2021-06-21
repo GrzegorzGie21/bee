@@ -12,7 +12,7 @@
     <form method="post">
       {% csrf_token %}
       {{ form|crispy }}
-      <input type="submit" value="add address">
+      <input class="btn btn-dark" type="submit" value="add address">
     </form>
 {#    <button><a href="{% url 'customer-addresses' %}">add new address</a></button>#}
 

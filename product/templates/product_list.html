@@ -8,8 +8,17 @@
   <h2>Product list:</h2>
 {% endblock %}
 {% block app_name %}
-Products
+  Product
 {% endblock %}
-{% block element %}
-  <td>{{ object }}</td>
+{% block edit_url %}
+  {% url 'product:edit-product' object.pk %}
 {% endblock %}
+{% block detail_url %}
+  {% url 'product:product-detail' object.pk %}
+{% endblock %}
+{% block delete_url %}
+  {% url 'product:delete-product' object.pk %}
+{% endblock %}
+{#{% block element %}#}
+{#  <td>{{ object }}</td>#}
+{#{% endblock %}#}

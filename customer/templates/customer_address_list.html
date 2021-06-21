@@ -1,7 +1,22 @@
 {% extends 'base.html' %}
+{% block page_title %}
+Addresses list
+{% endblock %}
 {% block content_title %}
-  <h3>Customers addresses:</h3>
+  <h3>Addresses:</h3>
 {% endblock %}
-{% block element %}
-  <li>{{ object.street }}</li>
+{% block app_name %}
+  Address
 {% endblock %}
+{% block edit_url %}
+  {% url 'customer:edit-address' object.pk %}
+{% endblock %}
+{% block detail_url %}
+  {% url 'customer:address-detail' object.pk %}
+{% endblock %}
+{% block delete_url %}
+  {% url 'customer:delete-address' object.pk %}
+{% endblock %}
+{#{% block element %}#}
+{#  <td>{{ object.name }}</td>#}
+{#{% endblock %}#}

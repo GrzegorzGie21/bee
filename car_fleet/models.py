@@ -30,9 +30,12 @@ class Mileage(models.Model):
     date = models.DateField(verbose_name='report date')
     car = models.ForeignKey(Car, on_delete=models.CASCADE)
 
+    class Meta:
+        ordering = ('car', '-end_day_odometer')
+
     # w formularzu nadpisac metodę save()
     def calculate_distance(self):
         return self.end_day_odometer - self.start_day_odometer
 
     def __str__(self):
-        return f'Car: {self.car.registration_number} on day {self.date}'
+        return f'{self.car.manufacturer} {self.car.model} {self.car.registration_number} on day {self.date}'

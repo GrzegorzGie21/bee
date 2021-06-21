@@ -11,6 +11,7 @@
   <form method="post">
     {% csrf_token %}
     {{ form|crispy }}
-    <input type="submit" value="edit package">
+    <input class="btn btn-dark" type="submit" value="edit package">
+    <a href="{% url 'product:package-list' %}" class="btn btn-info">Back</a>
   </form>
 {% endblock %}

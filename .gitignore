@@ -5,6 +5,8 @@ tags
 .idea
 code_examples.py
 templates/table.html
+movie/templates/index.html
+movie
 
 # Created by https://www.gitignore.io/api/django,python,visualstudiocode
 

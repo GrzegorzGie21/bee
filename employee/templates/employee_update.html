@@ -9,8 +9,9 @@
     <h2>Edit employee:</h2>
   {% endblock %}
   <form method="post">
-  {% csrf_token%}
+    {% csrf_token %}
     {{ form|crispy }}
-    <input type="submit" value="edit emp">
+    <input class="btn btn-dark" type="submit" value="edit emp">
+    <a href="{% url 'employee:edit-employee' %}" class="btn btn-info">Back</a>
   </form>
 {% endblock %}

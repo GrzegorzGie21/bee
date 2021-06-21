@@ -19,7 +19,7 @@ class ProductAddView(CreateView):
     model = Product
     template_name = 'product_add.html'
     fields = '__all__'
-    success_url = reverse_lazy('product-list')
+    success_url = reverse_lazy('product:product-list')
 
 
 class ProductUpdateView(UpdateView):
@@ -28,13 +28,13 @@ class ProductUpdateView(UpdateView):
     fields = '__all__'
 
     def get_success_url(self):
-        return reverse_lazy('product-detail', args=[self.object.pk])
+        return reverse_lazy('product:product-detail', args=[self.object.pk])
 
 
 class ProductDeleteView(DeleteView):
     model = Product
     template_name = 'product_delete.html'
-    success_url = reverse_lazy('customer-list')
+    success_url = reverse_lazy('product:product-list')
 
 
 class PromotionListView(ListView):
@@ -52,7 +52,7 @@ class PromotionAddView(CreateView):
     model = Promotion
     template_name = 'promotion_add.html'
     fields = '__all__'
-    success_url = reverse_lazy('promotion-list')
+    success_url = reverse_lazy('product:promotion-list')
 
 
 class PromotionEditView(UpdateView):
@@ -62,13 +62,13 @@ class PromotionEditView(UpdateView):
     context_object_name = 'promotion'
 
     def get_success_url(self):
-        return reverse_lazy('promotion-detail', args=[self.object.pk])
+        return reverse_lazy('product:promotion-detail', args=[self.object.pk])
 
 
 class PromotionDeleteView(DeleteView):
     model = Promotion
     template_name = 'promotion_delete.html'
-    success_url = reverse_lazy('promotion-list')
+    success_url = reverse_lazy('product:promotion-list')
 
 
 class PackageListView(ListView):
@@ -85,7 +85,7 @@ class PackageAddView(CreateView):
     model = Package
     template_name = 'package_add.html'
     fields = '__all__'
-    success_url = reverse_lazy('package-list')
+    success_url = reverse_lazy('product:package-list')
 
 
 class PackageEditView(UpdateView):
@@ -94,10 +94,10 @@ class PackageEditView(UpdateView):
     fields = '__all__'
 
     def get_success_url(self):
-        return reverse_lazy('package-detail', args=[self.object.pk])
+        return reverse_lazy('product:package-detail', args=[self.object.pk])
 
 
 class PackageDeleteView(DeleteView):
     model = Package
     template_name = 'package_delete.html'
-    success_url = reverse_lazy('package-list')
+    success_url = reverse_lazy('product:package-list')

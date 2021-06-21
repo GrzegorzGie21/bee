@@ -6,15 +6,20 @@
   <h2>Car list:</h2>
 {% endblock %}
 {% block app_name %}
-Cars
+  Cars
 {% endblock %}
 {% block edit_url %}
-{% url 'car:car-detail' object.pk %}
+  {% url 'car:edit-car' object.pk %}
 {% endblock %}
 {% block delete_url %}
-{% url 'car:car-list' %}
-
+  {% url 'car:delete-car' object.pk %}
 {% endblock %}
 {% block element %}
-  <li>{{ object.manufacturer }} {{ object.model }} {{ object.registration_number }}</li>
+  <td class="text-center">
+    <a style="text-decoration: none; color: black"
+       href="{% block detail_url %}{% url 'car:car-detail' object.pk %}{% endblock %}">
+      {{ object.manufacturer }} {{ object.model }} {{ object.registration_number }}
+    </a>
+  </td>
+
 {% endblock %}

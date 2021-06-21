@@ -1,13 +1,24 @@
 {% extends 'base.html' %}
 
 {% block page_title %}
-  Document list:
+  Document list
 {% endblock %}
 
 {% block content_title %}
   <h2>Document list:</h2>
 {% endblock %}
-
-{% block element %}
-  <li>{{ object }}</li>
+{% block app_name %}
+  Document
 {% endblock %}
+{% block detail_url %}
+  {% url 'employee:document-detail' object.pk %}
+{% endblock %}
+{% block edit_url %}
+  {% url 'employee:edit-document' object.pk %}
+{% endblock %}
+{% block delete_url %}
+  {% url 'employee:delete-document' object.pk %}
+{% endblock %}
+{#{% block element %}#}
+{#  <td>{{ object }}</td>#}
+{#{% endblock %}#}

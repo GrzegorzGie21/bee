@@ -1,5 +1,6 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -13,97 +14,231 @@
       Home Page
     {% endblock %}
   </title>
+  <link rel="stylesheet" href="{% static 'main.css' %}" type="text/css">
 </head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href="#">Bee</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="{% url 'car:car-list' %}">Cars <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'customer:customer-list' %}">Customers <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'employee:employee-list' %}">Employees <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'product:product-list' %}">Products <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'order:order-list' %}">Orders <span class="sr-only">(current)</span></a>
-      </li>
-      {#      <li class="nav-item dropdown">#}
-      {#        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
-      {#          Cars#}
-      {#        </a>#}
-      {#        <div class="dropdown-menu" aria-labelledby="navbarDropdown">#}
-      {#          <a class="dropdown-item" href="{% url 'car-list' %}"></a>#}
-      {#          <a class="dropdown-item" href="#">Another action</a>#}
-      {#          <div class="dropdown-divider"></div>#}
-      {#          <a class="dropdown-item" href="#">Something else here</a>#}
-      {#        </div>#}
-      {#      </li>#}
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-dark my-2 my-sm-0" type="submit">Login</button>
-    </form>
+<body id="bee">
+<header id="header">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="{% url 'home' %}">Home page</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    {% if user.is_authenticated %}
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+             data-toggle="dropdown"
+             aria-haspopup="true" aria-expanded="false">
+            Cars
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{% url 'car:car-list' %}">Car</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{% url 'car:mileage-list' %}">Mileage</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="{% url 'car:mileage-list' %}" id="navbarDropdown"
+             role="button"
+             data-toggle="dropdown"
+             aria-haspopup="true" aria-expanded="false">
+            Customers
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{% url 'customer:customer-list' %}">Customer</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{% url 'customer:customer-addresses' %}">Addresses</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="{% url 'employee:employee-list' %}" id="navbarDropdown"
+             role="button"
+             data-toggle="dropdown"
+             aria-haspopup="true" aria-expanded="false">
+            Employees
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{% url 'employee:employee-list' %}">Employee</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{% url 'employee:document-list' %}">Document</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="{% url 'product:product-list' %}" id="navbarDropdown"
+             role="button"
+             data-toggle="dropdown"
+             aria-haspopup="true" aria-expanded="false">
+            Products
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{% url 'product:product-list' %}">Product</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{% url 'product:package-list' %}">Package</a>
+            <a class="dropdown-item" href="{% url 'product:promotion-list' %}">Promotion</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'order:order-list' %}">Orders <span
+              class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+      <h3 style="color: yellow">{{ user.username }} </h3>
+      <a href="{% url 'employee:logout' %}">
+        <button class="btn btn-danger my-2 my-sm-0" type="button">Logout</button>
+      </a>
+    {% else %}
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+             data-toggle="dropdown"
+             aria-haspopup="true" aria-expanded="false">
+            Cars
+          </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="{% url 'car:mileage-list' %}" id="navbarDropdown"
+             role="button"
+             data-toggle="dropdown"
+             aria-haspopup="true" aria-expanded="false">
+            Customers
+          </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="{% url 'employee:employee-list' %}" id="navbarDropdown"
+             role="button"
+             data-toggle="dropdown"
+             aria-haspopup="true" aria-expanded="false">
+            Employees
+          </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="{% url 'product:product-list' %}" id="navbarDropdown"
+             role="button"
+             data-toggle="dropdown"
+             aria-haspopup="true" aria-expanded="false">
+            Products
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'order:order-list' %}">Orders <span
+              class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+      <a href="{% url 'employee:login' %}">
+        <button class="btn btn-danger my-2 my-sm-0" type="button">Login</button>
+      </a>
+    {% endif %}
+    </div>
+  </nav>
+</header>
+<aside id="leftsidebar">
+  <div class="pos-f-t">
+    {% if user.is_authenticated %}
+      <nav class="navbar navbar-dark bg-danger">
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+          {#                <span class="navbar-toggler-icon"></span>#}
+          Add
+        </button>
+      </nav>
+      <div class="collapse" id="navbarToggleExternalContent">
+        <div class="bg-danger">
+          <nav id="nav">
+            <ul>
+              <li><a href="{% url 'car:add-car' %}">Car</a></li>
+              <li><a href="{% url 'car:add-mileage' %}">Mileage</a></li>
+              <li><a href="{% url 'customer:add-customer' %}">Customer</a></li>
+              <li><a href="{% url 'customer:add-address' %}">Customer Address</a></li>
+              <li><a href="{% url 'employee:add-employee' %}">Employee</a></li>
+              <li><a href="{% url 'employee:add-document' %}">Document</a></li>
+              <li><a href="{% url 'product:add-product' %}">Product</a></li>
+              <li><a href="{% url 'product:add-promotion' %}">Promotion</a></li>
+              <li><a href="{% url 'product:add-package' %}">Package</a></li>
+              <li><a href="{% url 'order:add-order' %}">Order</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    {% else %}
+      <nav class="navbar navbar-dark bg-danger">
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+          {#                          <span class="navbar-toggler-icon"></span>#}
+          Dropdown menu
+        </button>
+        <div class="collapse" id="navbarToggleExternalContent">
+          <div class="bg-dark">
+            <p style="color: yellow">Please log in to see this menu</p>
+          </div>
+        </div>
+      </nav>
+    {% endif %}
   </div>
-</nav>
-
-<div class="container">
-  <div class="col-8">
-    {% block content %}
+</aside>
+<section id="main">
+  {#    <img src="{% static 'bee_bg.jpg'%}" alt="Tu powinno byc logo">#}
+  {% block content %}
+    <div id="content_title">
       {% block content_title %}
         <h1>Home page</h1>
       {% endblock %}
-      {% block table %}
+    </div>
 
-        <table class="table table-hover table-bordered table-dark">
-          <thead>
+    {% block table %}
+      <table class="table table-hover table-bordered table-secondary table-sm">
+        <thead class="thead-dark">
+        <tr>
+          <th class="text-center" scope="col">#</th>
+          <th class="text-center" colspan="3" scope="col">{% block app_name %}Bee{% endblock %}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for object in object_list %}
           <tr>
-            <th scope="col">#</th>
-            <th colspan="3" scope="col">{% block app_name %}Bee{% endblock %}</th>
+            <th class="align-middle text-center" scope="row">{{ forloop.counter }}</th>
+            {% block element %}
+              <td class="align-middle text-center">
+                <a style="text-decoration: none; color: black"
+                   href="{% block detail_url %}{% endblock %}">{{ object|default:'Test object name' }}</a>
+              </td>
+            {% endblock %}
+            <td class="text-center">
+              <a href="{% block edit_url %}{% endblock %}">
+                <button class="btn btn-info btn-sm">Edit</button>
+              </a>
+            </td>
+            <td class="text-center">
+              <a href="{% block delete_url %}{% endblock %}">
+                <button class="btn btn-warning btn-sm">Delete</button>
+              </a>
+            </td>
           </tr>
-          </thead>
-          <tbody>
-          {% for object in object_list %}
-            <tr>
-              <th scope="row">{{ forloop.counter }}</th>
-              {% block element %}
-                <td>{{ object|default:'Test object name' }}</td>
-              {% endblock %}
-              <td>
-                <a href="{% block edit_url %}{% endblock %}">
-                  <button class="btn btn-info">Edit</button>
-                </a>
-              </td>
-              <td>
-                <a href="{% block delete_url %}{% endblock %}">
-                  <button class="btn btn-warning">Delete</button>
-                </a>
-              </td>
-            </tr>
-          {% empty %}
-            <h3>There is no items!</h3>
-          {% endfor %}
-          </tbody>
-        </table>
-
-
-      {% endblock %}
+        {% empty %}
+          <h3>There is no items!</h3>
+        {% endfor %}
+        </tbody>
+      </table>
+      {% block pagination %}{% endblock %}
     {% endblock %}
-  </div>
+  {% endblock %}
+  {#  <a type="button" onclick="goBack()" class="btn btn-info" href="#">Back</a>#}
+  {#  <script>#}
+  {#      function goBack() {#}
+  {#          window.history.back();#}
+  {#      }#}
+  {#  </script>#}
+</section>
 
-</div>
-
+<footer id="footer">
+  {% block footer %}
+    Date: {{ time }}, version {{ version }}
+  {% endblock %}
+</footer>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

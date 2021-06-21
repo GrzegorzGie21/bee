@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  {% if result %}
+    <table class="table table-hover table-bordered table-secondary table-sm">
+      <thead class="table-dark">
+      <tr>
+        <th scope="col">Number of orders</th>
+        <th scope="col">Number of products</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{{ order_quantity }}</td>
+        <td>{{ product_quantity }}</td>
+      </tr>
+      </tbody>
+    </table>
+  {% else %}
+    <form method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input type="submit" value="generate">
+    </form>
+  {% endif %}
+{% endblock %}

@@ -4,18 +4,42 @@
   Product detail
 {% endblock %}
 {% block content %}
-  {% block content_title %}
-    <h2>Product {{ product.name }}:</h2>
-  {% endblock %}
-  <ul>
-    {% if product.have_promotion %}
-      <li>{{ product.calculate_net_price }} (promotion price)</li>
-    {% else %}
-      <li>{{ product.net_price }}</li>
-    {% endif %}
-    <li>{{ product.get_vat_display }}</li>
-    <li>{{ product.packages }}</li>
-  </ul>
+  <div class="card text-white bg-secondary border-dark mb-3 w-75 mt-2">
+    <div class="card-header text-center bg-dark border-light">
+      {% block content_title %}
+        <h2>{{ product.name }}</h2>
+      {% endblock %}
+    </div>
+    <div class="card-body text-center">
+      <h5 class="card-title">Details:</h5>
+      {% if product.have_promotion %}
+        <p class="card-text">Promotion: {{ product.promotion }}</p>
+        <p class="card-text">Promotion price: {{ product.calculate_net_price }} zł</p>
+        <p class="card-text">Regular price: {{ product.net_price }} zł</p>
+      {% else %}
+        <p class="card-text">Net price: {{ product.net_price }} zł</p>
+      {% endif %}
+      <p class="card-text">VAT: {{ product.get_vat_display }} %</p>
+      <p class="card-text">Package: {{ product.packages }}</p>
+      <a href="{% url 'product:edit-product' product.id %}" class="btn btn-sm btn-primary">Edit</a>
+      <a href="{% url 'product:delete-product' product.id %}" class="btn btn-sm btn-danger">Delete</a>
+    </div>
+    <div class="card-footer text-muted text-center bg-dark border-light">
+      <a href="{% url 'product:product-list' %}" class="btn btn-info btn-block">Back</a>
+    </div>
+  </div>
+  {#  {% block content_title %}#}
+  {#    <h2>Product {{ product.name }}:</h2>#}
+  {#  {% endblock %}#}
+  {#  <ul>#}
+  {#    {% if product.have_promotion %}#}
+  {#      <li>{{ product.calculate_net_price }} (promotion price)</li>#}
+  {#    {% else %}#}
+  {#      <li>{{ product.net_price }}</li>#}
+  {#    {% endif %}#}
+  {#    <li>{{ product.get_vat_display }}</li>#}
+  {#    <li>{{ product.packages }}</li>#}
+  {#  </ul>#}
   {#  {% block forloop %}#}
   {#    <ul>#}
   {#      {% for package in product.packages.objects.all %}#}

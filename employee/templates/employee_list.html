@@ -8,14 +8,17 @@
   <h2>Employee list:</h2>
 {% endblock %}
 {% block app_name %}
-Employee
+  Employee
 {% endblock %}
-{% block element %}
-  <td>{{ object }}</td>
-{% endblock %}
+{#{% block element %}#}
+{#  <td>{{ object }}</td>#}
+{#{% endblock %}#}
 {% block edit_url %}
-{% url 'edit-employee' object.pk %}
+  {% url 'employee:edit-employee' object.pk %}
+{% endblock %}
+{% block detail_url %}
+  {% url 'employee:employee-detail' object.pk %}
 {% endblock %}
 {% block delete_url %}
-{% url 'delete-employee' object.pk %}
+  {% url 'employee:delete-employee' object.pk %}
 {% endblock %}

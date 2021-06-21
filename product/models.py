@@ -56,8 +56,8 @@ class Package(models.Model):
         TUBE = 'Tube'
 
     class CapacityType(models.Choices):
-        G = 'g'
-        L = 'l'
+        GRAM = 'g'
+        LITRE = 'l'
 
     type = models.CharField(max_length=20, verbose_name='Package type', choices=PackageType.choices)
     capacity = models.PositiveSmallIntegerField(verbose_name='Package weight',

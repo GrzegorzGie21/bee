@@ -1,11 +1,22 @@
 {% extends 'base.html' %}
-
+{% block page_title %}
+Customer list
+{% endblock %}
 {% block content_title %}
   <h3>Customers:</h3>
 {% endblock %}
 {% block app_name %}
-Customer
+  Customer
 {% endblock %}
-{% block element %}
-  <td>{{ object.name }}</td>
+{% block edit_url %}
+  {% url 'customer:edit-customer' object.pk %}
 {% endblock %}
+{% block delete_url %}
+  {% url 'customer:delete-customer' object.pk%}
+{% endblock %}
+{% block detail_url %}
+{% url 'customer:customer-detail' object.pk %}
+{% endblock %}
+{#{% block element %}#}
+{#  <td>{{ object.name }}</td>#}
+{#{% endblock %}#}

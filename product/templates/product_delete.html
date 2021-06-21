@@ -10,6 +10,8 @@
   <form method="post">
     {% csrf_token %}
     <h4>Are you sure to delete this product?</h4>
-    <input type="submit" value="yes">
+    <input class="btn btn-danger" type="submit" value="Yes">
+    <a class="btn btn-info" href="{% url 'product:product-list' %}">No</a>
   </form>
+
 {% endblock %}

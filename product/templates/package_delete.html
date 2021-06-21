@@ -10,6 +10,7 @@
   <form method="post">
     {% csrf_token %}
     <h4>Are you sure to delete this package?</h4>
-    <input type="submit" value="yes">
+    <input class="btn btn-danger" type="submit" value="yes">
+    <a class="btn btn-info" href="{% url 'product:package-list' %}">No</a>
   </form>
 {% endblock %}

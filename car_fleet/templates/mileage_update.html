@@ -12,6 +12,7 @@
   <form method="post">
     {% csrf_token %}
     {{ form|crispy }}
-    <input type="submit" value="update mileage">
+    <input class="btn btn-dark" type="submit" value="update mileage">
+    <a href="{% url 'car:mileage-list' %}" class="btn btn-info">Back</a>
   </form>
 {% endblock %}

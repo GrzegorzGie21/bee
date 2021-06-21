@@ -5,16 +5,65 @@
 {% block content_title %}
   <h2>Mileage list:</h2>
 {% endblock %}
-{% block forloop %}
-  <ol>
-    {% for mileage in mileage_list %}
-      {% block element %}
-        <li>{{ mileage.car }}:</li>
-        <ul>
-          <li>{{ mileage.date }}: {{ mileage.distance }} km</li>
-        </ul>
-      {% endblock %}
-    {% endfor %}
-  </ol>
+{% block app_name %}
+  Mileage
 {% endblock %}
+{% block edit_url %}
+  {% url 'car:edit-mileage' object.pk %}
+{% endblock %}
+{% block delete_url %}
+  {% url 'car:delete-mileage' object.pk %}
+{% endblock %}
+{% block detail_url %}
+  {% url 'car:mileage-detail' object.pk %}
+{% endblock %}
+{% block pagination %}
+  {% if is_paginated %}
+    <nav>
+      <ul class="pagination">
+        <li class="page-item">
+          <a href="{% url 'car:mileage-list' %}?page=1" class="page-link">
+            First
+          </a>
+        </li>
+        {% if page_obj.has_previous %}
+          <li class="page-item">
+            <a href="{% url 'car:mileage-list' %}?page={{ page_obj.previous_page_number }}" class="page-link">
+              {{ page_obj.previous_page_number }}
+            </a>
+          </li>
+        {% endif %}
+        <li class="page-item active">
+          <a href="{% url 'car:mileage-list' %}?page={{ page_obj.number }}" class="page-link">
+            {{ page_obj.number }}
+          </a>
+        </li>
+        {% if page_obj.has_next %}
+          <li class="page-item">
+            <a href="{% url 'car:mileage-list' %}?page={{ page_obj.next_page_number }}" class="page-link">
+              {{ page_obj.next_page_number }}
+            </a>
+          </li>
+        {% endif %}
+        <li class="page-item">
+          <a href="{% url 'car:mileage-list' %}?page=last" class="page-link">
+            Last
+          </a>
+        </li>
+      </ul>
+    </nav>
+  {% endif %}
+{% endblock %}
+{#{% block forloop %}#}
+{#  <ol>#}
+{#    {% for mileage in mileage_list %}#}
+{#      {% block element %}#}
+{#        <li>{{ mileage.car }}:</li>#}
+{#        <ul>#}
+{#          <li>{{ mileage.date }}: {{ mileage.distance }} km</li>#}
+{#        </ul>#}
+{#      {% endblock %}#}
+{#    {% endfor %}#}
+{#  </ol>#}
+{#{% endblock %}#}
 

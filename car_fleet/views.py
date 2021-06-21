@@ -24,25 +24,26 @@ class CarCreateView(CreateView):
     model = Car
     template_name = 'car_add.html'
     fields = '__all__'
-    success_url = reverse_lazy('car-list')
+    success_url = reverse_lazy('car:car-list')
 
 
 class CarUpdateView(UpdateView):
     model = Car
     fields = '__all__'
     template_name = 'car_update.html'
-    success_url = reverse_lazy('car-list')
+    success_url = reverse_lazy('car:car-list')
 
 
 class CarDeleteView(DeleteView):
     model = Car
     template_name = 'car_delete.html'
-    success_url = reverse_lazy('car-list')
+    success_url = reverse_lazy('car:car-list')
 
 
 class MileageListView(ListView):
     model = Mileage
     template_name = 'mileage_list.html'
+    paginate_by = 3
 
 
 class MileageDetailView(DetailView):
@@ -54,7 +55,7 @@ class MileageCreateView(CreateView):
     model = Mileage
     template_name = 'mileage_add.html'
     fields = ['start_day_odometer', 'end_day_odometer', 'date', 'car']
-    success_url = reverse_lazy('mileage-list')
+    success_url = reverse_lazy('car:mileage-list')
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
@@ -67,7 +68,7 @@ class MileageUpdateView(UpdateView):
     model = Mileage
     fields = ['start_day_odometer', 'end_day_odometer', 'date', 'car']
     template_name = 'mileage_update.html'
-    success_url = reverse_lazy('mileage-list')
+    success_url = reverse_lazy('car:mileage-list')
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
@@ -79,4 +80,10 @@ class MileageUpdateView(UpdateView):
 class MileageDeleteView(DeleteView):
     model = Mileage
     template_name = 'mileage_delete.html'
-    success_url = reverse_lazy('mileage-list')
+    success_url = reverse_lazy('car:mileage-list')
+
+
+class TestMilegeaView(ListView):
+    model = Mileage
+    template_name = '../movie/templates/index.html'
+    paginate_by = 3

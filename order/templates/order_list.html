@@ -8,8 +8,17 @@
   <h2>Order list:</h2>
 {% endblock %}
 {% block app_name %}
-Orders
+  Order
 {% endblock %}
-{% block element %}
-  <td>{{ object }}</td>
+{% block edit_url %}
+  {% url 'order:edit-order' object.pk %}
 {% endblock %}
+{% block delete_url %}
+  {% url 'order:delete-order' object.pk %}
+{% endblock %}
+{% block detail_url %}
+{% url 'order:order-detail' object.pk %}
+{% endblock %}
+{#{% block element %}#}
+{#  <td>{{ object }}</td>#}
+{#{% endblock %}#}

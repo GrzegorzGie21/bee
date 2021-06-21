@@ -6,12 +6,31 @@
 {% endblock %}
 
 {% block content %}
-  {% block content_title %}
-    <h2>Mileage detail for car: {{ mileage.car }}</h2>
-  {% endblock %}
-  <ul>
-    <li>{{ mileage.date}}</li>
-    <li>{{ mileage.distance}}</li>
-  </ul>
+  <div class="card text-white bg-secondary border-dark mb-3 w-75 mt-2">
+    <div class="card-header text-center bg-dark border-light">
+      {% block content_title %}
+        <h2>{{ mileage.car }}</h2>
+      {% endblock %}
+    </div>
+    <div class="card-body text-center">
+      <h5 class="card-title">Details:</h5>
+      <p class="card-text">Date: {{ mileage.date }}</p>
+      <p class="card-text">Start day odometer: {{ mileage.start_day_odometer }}</p>
+      <p class="card-text">End day odometer: {{ mileage.end_day_odometer }}</p>
+      <p class="card-text">Distance: {{ mileage.distance }}</p>
+      <a href="{% url 'car:edit-mileage' mileage.id %}" class="btn btn-sm btn-primary">Edit</a>
+      <a href="{% url 'car:delete-mileage' mileage.id %}" class="btn btn-sm btn-danger">Delete</a>
+    </div>
+    <div class="card-footer text-muted text-center bg-dark border-light">
+      <a href="{% url 'car:mileage-list' %}" class="btn btn-info btn-block">Back</a>
+    </div>
+  </div>
+  {#  {% block content_title %}#}
+  {#    <h2>Mileage detail for car: {{ mileage.car }}</h2>#}
+  {#  {% endblock %}#}
+  {#  <ul>#}
+  {#    <li>{{ mileage.date}}</li>#}
+  {#    <li>{{ mileage.distance}}</li>#}
+  {#  </ul>#}
 
 {% endblock %}
