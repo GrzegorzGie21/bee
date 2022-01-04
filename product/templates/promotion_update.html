@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block page_title %}
+  Edit promotion
+{% endblock %}
+{% block content %}
+  {% block content_title %}
+    <h2>Edit promotion {{ promotion }}:</h2>
+  {% endblock %}
+  <form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input class="btn btn-dark" type="submit" value="edit promotion">
+    <a href="{% url 'product:promotion-list' %}" class="btn btn-info">Back</a>
+  </form>
+{% endblock %}

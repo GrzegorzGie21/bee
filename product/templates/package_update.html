@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block page_title %}
+  Edit package
+{% endblock %}
+{% block content %}
+  {% block content_title %}
+    <h2>Edit package {{ package }}:</h2>
+  {% endblock %}
+  <form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input class="btn btn-dark" type="submit" value="edit package">
+    <a href="{% url 'product:package-list' %}" class="btn btn-info">Back</a>
+  </form>
+{% endblock %}

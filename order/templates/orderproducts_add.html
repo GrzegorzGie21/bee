@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block page_title %}
+  Add product to order
+{% endblock %}
+{% block content %}
+  {% block content_title %}
+    <h2>Add product to order {{ order.id }}:</h2>
+  {% endblock %}
+  <form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input class="btn btn-dark" type="submit" value="add product">
+  </form>
+{% endblock %}

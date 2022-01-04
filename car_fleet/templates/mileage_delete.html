@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block page_title %}
+  Delete mileage
+{% endblock %}
+
+{% block content %}
+  {% block content_title %}
+    <h2>Delete mileage:</h2>
+  {% endblock %}
+  <form method="post">
+    {% csrf_token %}
+    <p>Are you sure to delete {{ object }}?</p>
+    <input class="btn btn-danger" type="submit" value="Yes">
+    <a class="btn btn-info" href="{% url 'car:mileage-list' %}">No</a>
+  </form>
+{% endblock %}

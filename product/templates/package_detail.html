@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+  Package detail
+{% endblock %}
+{% block content %}
+  <div class="card text-white bg-secondary border-dark mb-3 w-75 mt-2">
+    <div class="card-header text-center bg-dark border-light">
+      {% block content_title %}
+        <h2>{{ package.get_type_display }}</h2>
+      {% endblock %}
+    </div>
+    <div class="card-body text-center">
+      <h5 class="card-title">Details:</h5>
+      <p class="card-text">Weight: {{ package.capacity }}</p>
+      <p class="card-text">Capacity Type: {{ package.get_capacity_type_display|lower }}</p>
+      <p class="card-text">Multipack quantity: {{ package.multipack_quantity }}</p>
+      <a href="{% url 'product:edit-package' package.id %}" class="btn btn-sm btn-primary">Edit</a>
+      <a href="{% url 'product:delete-package' package.id %}" class="btn btn-sm btn-danger">Delete</a>
+    </div>
+    <div class="card-footer text-muted text-center bg-dark border-light">
+      <a href="{% url 'product:package-list' %}" class="btn btn-info btn-block">Back</a>
+    </div>
+  </div>
+
+{#  {% block content_title %}#}
+{#    <h2>Package {{ package.name }}:</h2>#}
+{#  {% endblock %}#}
+{#  <ul>#}
+{#    <li>{{ package.get_type_display }}</li>#}
+{#    <li>{{ package.get_capacity_type_display }}</li>#}
+{#  </ul>#}
+{% endblock %}

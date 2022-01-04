@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+  Delete package
+{% endblock %}
+{% block content %}
+  {% block content_title %}
+    <h2>Delete package {{ package }}:</h2>
+  {% endblock %}
+  <form method="post">
+    {% csrf_token %}
+    <h4>Are you sure to delete this package?</h4>
+    <input class="btn btn-danger" type="submit" value="yes">
+    <a class="btn btn-info" href="{% url 'product:package-list' %}">No</a>
+  </form>
+{% endblock %}

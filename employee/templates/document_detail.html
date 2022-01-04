@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+  Document detail:
+{% endblock %}
+{% block content %}
+  <div class="card text-white bg-secondary border-dark mb-3 w-75 mt-2">
+    <div class="card-header text-center bg-dark border-light">
+      {% block content_title %}
+        <h2>{{ document.title }}</h2>
+      {% endblock %}
+    </div>
+    <div class="card-body text-center">
+      <h5 class="card-title">Details:</h5>
+      <p class="card-text">Type: {{ document.get_type_display }}</p>
+      <p class="card-text">Value: {{ document.cost }} zł</p>
+      <p class="card-text">Employee: {{ document.user.last_name }}</p>
+      <p class="card-text">Created: {{ document.created_date }}</p>
+      <a href="{% url 'employee:edit-document' document.id %}" class="btn btn-sm btn-primary">Edit</a>
+      <a href="{% url 'employee:delete-document' document.id %}" class="btn btn-sm btn-danger">Delete</a>
+    </div>
+    <div class="card-footer text-muted text-center bg-dark border-light">
+      <a href="{% url 'employee:document-list' %}" class="btn btn-info btn-block">Back</a>
+    </div>
+  </div>
+{#    <li>{{ document.title }}</li>#}
+{#    <li>{{ document.created_date }}</li>#}
+{#    <li>{{ document.get_type_display }}</li>#}
+{% endblock %}

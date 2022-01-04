@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+  Order list
+{% endblock %}
+
+{% block content_title %}
+  <h2>Order list:</h2>
+{% endblock %}
+{% block app_name %}
+  Order
+{% endblock %}
+{% block edit_url %}
+  {% url 'order:edit-order' object.pk %}
+{% endblock %}
+{% block delete_url %}
+  {% url 'order:delete-order' object.pk %}
+{% endblock %}
+{% block detail_url %}
+{% url 'order:order-detail' object.pk %}
+{% endblock %}
+{#{% block element %}#}
+{#  <td>{{ object }}</td>#}
+{#{% endblock %}#}

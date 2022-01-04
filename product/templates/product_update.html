@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block page_title %}
+  Edit
+{% endblock %}
+{% block content %}
+  {% block content_title %}
+    <h2>Edit product {{ product }}:</h2>
+  {% endblock %}
+  {#  {% block forloop %}#}
+  {#    <ul>#}
+  {#      {% for package in product.packages.objects.all %}#}
+  {#        {{ package.get_type_display }}#}
+  {#      {% endfor %}#}
+  {#    </ul>#}
+  {#  {% endblock %}#}
+  <form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input class="btn btn-dark" type="submit" value="edit product">
+    <a href="{% url 'product:product-list' %}" class="btn btn-info">Back</a>
+  </form>
+{% endblock %}

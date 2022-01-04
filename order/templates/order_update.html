@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block page_title %}
+  Edit order
+{% endblock %}
+{#{% block content %}#}
+{#  {% block content_title %}#}
+{#    <h2>Edit order {{ order }}:</h2>#}
+{#  {% endblock %}#}
+{#  <form method="post">#}
+{#    {% csrf_token %}#}
+{#    {{ form|crispy }}#}
+{#    {{ order_id }}#}
+{#    <input type="submit" value="edit order">#}
+{#  </form>#}
+{#{% endblock %}#}
+
+{% block content %}
+  {% block content_title %}
+    <h2>Edit Order {{ order }}:</h2>
+  {% endblock %}
+  <form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input class="btn btn-dark" type="submit" value="edit order" name="edit_order">
+    <a href="{% url 'order:order-list' %}" class="btn btn-info">Back</a>
+  </form>
+  <hr>
+  <table class="table table-striped table-bordered table-info table-sm w-auto">
+    <caption class="text-dark">List of products</caption>
+    <thead class="bg-success">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Product</th>
+      <th scope="col">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for order_product in order_products %}
+      <tr>
+        <th class="align-middle" scope="row">{{ forloop.counter }}</th>
+        <td class="align-middle">{{ order_product.product }} - {{ order_product.quantity }} units</td>
+        <td class="align-middle">
+          <form method="post">
+            {% csrf_token %}
+            <a href="{% url 'product:delete-product' order_product.product.id %}"></a>
+            <input type="hidden" value="{{ order_product.pk }}" name="product_id">
+            <input class="btn btn-danger btn-sm" type="submit" value="delete" name="delete_product">
+          </form>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <hr>
+  <form method="post">
+    {% csrf_token %}
+    {{ form2|crispy }}
+    <input class="btn btn-dark" type="submit" value="add product" name="add_product">
+  </form>
+{% endblock %}

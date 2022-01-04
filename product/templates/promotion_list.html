@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+  Product list
+{% endblock %}
+
+{% block content_title %}
+  <h2>Promotion list:</h2>
+{% endblock %}
+{% block app_name %}
+  Promotion
+{% endblock %}
+{% block detail_url %}
+  {% url 'product:promotion-detail' object.pk %}
+{% endblock %}
+{% block edit_url %}
+  {% url 'product:edit-promotion' object.pk %}
+{% endblock %}
+{% block delete_url %}
+  {% url 'product:delete-promotion' object.pk %}
+{% endblock %}
+{#{% block element %}#}
+{#  <td>{{ object }}</td>#}
+{#{% endblock %}#}

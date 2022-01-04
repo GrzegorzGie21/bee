@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+  Order detail
+{% endblock %}
+{% block content %}
+  <div class="card text-white bg-secondary border-dark mb-3 w-75 mt-2">
+    <div class="card-header text-center bg-dark border-light">
+      {% block content_title %}
+        <h2>Order nr {{ order.number }}</h2>
+      {% endblock %}
+    </div>
+    <div class="card-body text-center">
+      <h5 class="card-title">Details:</h5>
+      <p class="card-text">Date: {{ order.date }}</p>
+      <p class="card-text">Customer: {{ order.customer }}</p>
+      <p class="card-text">Employee: {{ order.user.last_name }}</p>
+      <div class="card border-dark">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item bg-warning border-dark text-dark">Products:</li>
+          {% for order_product in order_products %}
+            <li class="list-group-item bg-light text-dark">{{ order_product.product }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <a href="{% url 'order:edit-order' order.id %}" class="btn btn-sm btn-primary">Edit</a>
+      <a href="{% url 'order:delete-order' order.id %}" class="btn btn-sm btn-danger">Delete</a>
+    </div>
+
+    <div class="card-footer text-muted text-center bg-dark border-light">
+      <a href="{% url 'order:order-list' %}" class="btn btn-info btn-block">Back</a>
+    </div>
+  </div>
+  {#  {% block content_title %}#}
+  {#    <h2>Order {{ order }}:</h2>#}
+  {#  {% endblock %}#}
+  {#  <ul>#}
+  {#    {% for order_product in order_products %}#}
+  {#        <li>{{ order_product.product }} - {{ order_product.quantity }} units</li>#}
+  {#                <a href="{% url 'product:delete-product' order_product.product.id %}"></a>#}
+  {#    {% endfor %}#}
+  {#  </ul>#}
+  {#  <br>#}
+{% endblock %}

@@ -1,0 +1,17 @@
+<div class="card text-white bg-secondary border-dark mb-3 w-75 mt-2">
+  <div class="card-header text-center bg-dark border-light">
+    <h2>{% block card_header %}{{ object|default:'Card header' }}{% endblock %}</h2>
+  </div>
+  <div class="card-body text-center">
+    {% block card_body %}
+      <h5 class="card-title">{% block card_title %}Card title{% endblock %}:</h5>
+      <a href="{% block url_edit %}{% endblock %}" class="btn btn-sm btn-primary">Edit</a>
+      <a href="{% block url_delete %}{% endblock %}" class="btn btn-sm btn-danger">Delete</a>
+    {% endblock %}
+  </div>
+  {% block card_footer %}
+    <div class="card-footer text-muted text-center bg-dark border-light">
+      <a href="{% block url_back %}{% endblock %}" class="btn btn-info btn-block">Back</a>
+    </div>
+  {% endblock %}
+</div>
