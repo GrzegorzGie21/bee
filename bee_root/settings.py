@@ -90,8 +90,8 @@ DATABASES = {
         'HOST': '127.0.0.1',
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'bee',
-        'USER': os.environ['DB_USER_NAME'],
-        'PASSWORD': os.environ['BEE_DB_PASSWORD'],
+        'USER': os.environ.get('DB_USER_NAME'),
+        'PASSWORD': os.environ.get('BEE_DB_PASSWORD'),
     }
 }
 
