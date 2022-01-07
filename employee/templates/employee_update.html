@@ -12,6 +12,6 @@
     {% csrf_token %}
     {{ form|crispy }}
     <input class="btn btn-dark" type="submit" value="edit emp">
-    <a href="{% url 'employee:edit-employee' %}" class="btn btn-info">Back</a>
+    <a href="{% url 'employee:employee-list' %}" class="btn btn-info">Back</a>
   </form>
 {% endblock %}
