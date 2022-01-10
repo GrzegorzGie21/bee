@@ -87,11 +87,12 @@ WSGI_APPLICATION = 'bee_root.wsgi.application'
 
 DATABASES = {
     'default': {
-        'HOST': '127.0.0.1',
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'bee',
-        'USER': os.environ.get('DB_USER_NAME'),
-        'PASSWORD': os.environ.get('BEE_DB_PASSWORD'),
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'db',
+        'PORT': '5432',
     }
 }
 
