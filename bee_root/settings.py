@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from environs import Env
+
+
+env = Env()
+env.read_env()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,16 +25,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('BEE_SECRET_KEY')
+SECRET_KEY = env.str('BEE_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DEBUG', default=False)
 
-ALLOWED_HOSTS = [
-    'localhost',
-    '127.0.0.1',
-]
-
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 # Application definition
 
@@ -86,13 +87,7 @@ WSGI_APPLICATION = 'bee_root.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'HOST': '127.0.0.1',
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'bee',
-        'USER': os.environ.get('DB_USER_NAME'),
-        'PASSWORD': os.environ.get('BEE_DB_PASSWORD'),
-    }
+    'default': env.dj_db_url('DATABASE_URL')
 }
 
 
@@ -128,6 +123,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+APP_VERSION = '1.3.0'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
