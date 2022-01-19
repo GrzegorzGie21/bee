@@ -10,16 +10,12 @@ services:
       - 8000:8000
     depends_on:
       - db
-    environment:
-      - "BEE_SECRET_KEY=FmMppYTxko7dDC327uDKlA3ut1dEPqdle2bV93Sv8IeKjgsc1"
 
   db:
     container_name: db
     image: postgres:11
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    environment:
-      POSTGRES_PASSWORD: postgres
 
 volumes:
   postgres_data:
