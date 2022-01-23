@@ -11,7 +11,7 @@
   Document
 {% endblock %}
 {% block detail_url %}
-  {% url 'employee:document-detail' object.pk %}
+  {{ object.get_absolute_url }}
 {% endblock %}
 {% block edit_url %}
   {% url 'employee:edit-document' object.pk %}
@@ -19,6 +19,3 @@
 {% block delete_url %}
   {% url 'employee:delete-document' object.pk %}
 {% endblock %}
-{#{% block element %}#}
-{#  <td>{{ object }}</td>#}
-{#{% endblock %}#}

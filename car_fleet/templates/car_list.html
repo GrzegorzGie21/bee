@@ -17,7 +17,7 @@
 {% block element %}
   <td class="text-center">
     <a style="text-decoration: none; color: black"
-       href="{% block detail_url %}{% url 'car:car-detail' object.pk %}{% endblock %}">
+       href="{% block detail_url %}{{object.get_absolute_url}}{% endblock %}">
       {{ object.manufacturer }} {{ object.model }} {{ object.registration_number }}
     </a>
   </td>

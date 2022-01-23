@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.shortcuts import reverse
 
 
 # Create your models here.
@@ -22,6 +23,9 @@ class Car(models.Model):
     def __str__(self):
         return f'{self.manufacturer} {self.model} ({self.registration_number})'
 
+    def get_absolute_url(self):
+        return reverse('car:car-detail', kwargs={'pk': self.pk})
+
 
 class Mileage(models.Model):
     distance = models.PositiveSmallIntegerField(default=0)
@@ -39,3 +43,6 @@ class Mileage(models.Model):
 
     def __str__(self):
         return f'{self.car.manufacturer} {self.car.model} {self.car.registration_number} on day {self.date}'
+
+    def get_absolute_url(self):
+        return reverse('car:mileage-detail', kwargs={'pk': self.pk})

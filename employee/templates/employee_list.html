@@ -10,14 +10,11 @@
 {% block app_name %}
   Employee
 {% endblock %}
-{#{% block element %}#}
-{#  <td>{{ object }}</td>#}
-{#{% endblock %}#}
 {% block edit_url %}
   {% url 'employee:edit-employee' object.pk %}
 {% endblock %}
 {% block detail_url %}
-  {% url 'employee:employee-detail' object.pk %}
+  {{ object.get_absolute_url }}
 {% endblock %}
 {% block delete_url %}
   {% url 'employee:delete-employee' object.pk %}

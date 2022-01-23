@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.shortcuts import reverse
 
 
 # Create your models here.
@@ -16,6 +17,9 @@ class Document(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('employee:document-detail', kwargs={'pk': self.pk})
 
 
 class Employee(models.Model):
@@ -49,3 +53,6 @@ class Employee(models.Model):
 
     def __str__(self):
         return f'{self.get_work_station_display()} {self.user.last_name}'
+
+    def get_absolute_url(self):
+        return reverse('employee:employee-detail', kwargs={'pk': self.pk})

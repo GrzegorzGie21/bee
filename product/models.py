@@ -1,4 +1,5 @@
 from django.db import models
+from django.shortcuts import reverse
 
 
 class Promotion(models.Model):
@@ -7,10 +8,12 @@ class Promotion(models.Model):
                                    help_text='Describe promotion value i.e. 1 means no promotion, 0.95 means 5% discount')
     start_date = models.DateField()
     end_date = models.DateField(blank=True, null=True)
-    # product = models.ForeignKey('Product', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('product:promotion-detail', kwargs={'pk': self.pk})
 
 
 class Product(models.Model):
@@ -32,7 +35,7 @@ class Product(models.Model):
     class Meta:
         unique_together = ['name', 'net_price', 'vat', 'have_promotion', 'packages']
 
-    # nadpisać metodę save(), która zaaktualizuje mi net_price
+    # todo:nadpisać metodę save(), która zaaktualizuje mi net_price
     def get_discount(self):
         if self.have_promotion:
             return self.promotion.discount
@@ -43,6 +46,9 @@ class Product(models.Model):
 
     def __str__(self):
         return f'{self.name} {self.packages.capacity} {self.packages.capacity_type}'
+
+    def get_absolute_url(self):
+        return reverse('product:product-detail', kwargs={'pk': self.pk})
 
 
 class Package(models.Model):
@@ -70,3 +76,6 @@ class Package(models.Model):
 
     def __str__(self):
         return f'{self.type} {self.capacity} {self.capacity_type}'
+
+    def get_absolute_url(self):
+        return reverse('product:package-detail', kwargs={'pk': self.pk})

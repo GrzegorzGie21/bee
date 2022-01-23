@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.shortcuts import reverse
 
 
 class CustomerAddress(models.Model):
@@ -10,6 +11,9 @@ class CustomerAddress(models.Model):
 
     def __str__(self):
         return f'{self.street} {self.street_number}, {self.city}'
+
+    def get_absolute_url(self):
+        return reverse('customer:address-detail', kwargs={'pk': self.pk})
 
 
 class Customer(models.Model):
@@ -34,3 +38,6 @@ class Customer(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('customer:customer-detail', kwargs={'pk': self.pk})
