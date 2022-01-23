@@ -3,8 +3,9 @@ from django.shortcuts import reverse
 from django.urls import resolve
 from django.contrib.auth import get_user_model
 from employee.views import index
-from car_fleet.views import CarListView, CarDetailView
+from car_fleet.views import CarListView, CarDetailView, MileageListView, MileageDetailView
 from car_fleet.models import Car, Mileage
+from datetime import date
 
 
 # Create your tests here.
@@ -44,6 +45,12 @@ class CarTests(TestCase):
                                       engine_size=1.4,
                                       user=self.user,
                                       odometer=100_000)
+        self.mileage = Mileage.objects.create(distance=100,
+                                              start_day_odometer=0,
+                                              end_day_odometer=100,
+                                              date=date.today().strftime('%Y-%m-%d'),
+                                              car=self.car
+                                              )
 
     def test_car_listing(self):
         self.assertEqual(f'{self.car.manufacturer}', 'Honda')
@@ -70,3 +77,27 @@ class CarTests(TestCase):
         self.assertContains(response, 'Honda Civic')
         self.assertTemplateUsed(response, 'car_detail.html')
         self.assertEqual(match.func.__name__, CarDetailView.as_view().__name__)
+
+    def test_mileage_string_representation(self):
+        self.assertEqual(f'{self.mileage.distance}', '100')
+        self.assertEqual(f'{self.mileage.start_day_odometer}', '0')
+        self.assertEqual(f'{self.mileage.end_day_odometer}', '100')
+        self.assertEqual(f'{self.mileage.date}', '2022-01-23')
+        self.assertEqual(f'{self.mileage.car}', 'Honda Civic (NLI42VN)')
+
+    def test_mileage_list_view(self):
+        response = self.client.get(reverse('car:mileage-list'))
+        match = resolve('/cars/mileage/list/')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Mileage list')
+        self.assertTemplateUsed(response, 'mileage_list.html')
+        self.assertEqual(match.func.__name__, MileageListView.as_view().__name__)
+
+    def test_milegae_detail_view(self):
+        response = self.client.get(self.mileage.get_absolute_url())
+        match = resolve('/cars/mileage/1/')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Honda Civic')
+        self.assertContains(response, 'Distance')
+        self.assertTemplateUsed(response, 'mileage_detail.html')
+        self.assertEqual(match.func.__name__, MileageDetailView.as_view().__name__)
