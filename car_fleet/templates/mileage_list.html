@@ -15,7 +15,7 @@
   {% url 'car:delete-mileage' object.pk %}
 {% endblock %}
 {% block detail_url %}
-  {% url 'car:mileage-detail' object.pk %}
+  {{ object.get_absolute_url }}
 {% endblock %}
 {% block pagination %}
   {% if is_paginated %}
