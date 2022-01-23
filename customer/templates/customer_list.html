@@ -15,7 +15,7 @@ Customer list
   {% url 'customer:delete-customer' object.pk%}
 {% endblock %}
 {% block detail_url %}
-{% url 'customer:customer-detail' object.pk %}
+  {{ object.get_absolute_url }}
 {% endblock %}
 {#{% block element %}#}
 {#  <td>{{ object.name }}</td>#}
