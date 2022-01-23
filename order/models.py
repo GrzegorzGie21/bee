@@ -1,6 +1,6 @@
 from django.db import models
-# from product.models import Product
 from django.contrib.auth.models import User
+from django.shortcuts import reverse
 from django.db.models import Sum
 
 
@@ -20,6 +20,10 @@ class Order(models.Model):
 
     def summary_quantity(self):
         return self.products.aggregate(Sum('quantity'))
+
+    def get_absolute_url(self):
+        return reverse('order:order-detail', kwargs={'pk': self.pk})
+
 
 class OrderProducts(models.Model):
     product = models.ForeignKey('product.Product', on_delete=models.CASCADE)
