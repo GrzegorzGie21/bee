@@ -7,7 +7,7 @@
   Package
 {% endblock %}
 {% block detail_url %}
-  {% url 'product:package-detail' object.pk %}
+  {{ object.get_absolute_url }}
 {% endblock %}
 {% block edit_url %}
   {% url 'product:edit-package' object.pk %}
