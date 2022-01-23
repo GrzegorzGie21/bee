@@ -71,7 +71,7 @@ class CarTests(TestCase):
         self.assertEqual(match.func.__name__, CarListView.as_view().__name__)
 
     def test_car_detail_view(self):
-        response = self.client.get(reverse(self.car.get_absolute_url))
+        response = self.client.get(reverse(self.car.get_absolute_url()))
         match = resolve('/cars/1/')
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Honda Civic')
@@ -93,7 +93,7 @@ class CarTests(TestCase):
         self.assertTemplateUsed(response, 'mileage_list.html')
         self.assertEqual(match.func.__name__, MileageListView.as_view().__name__)
 
-    def test_milegae_detail_view(self):
+    def test_mileage_detail_view(self):
         response = self.client.get(self.mileage.get_absolute_url())
         match = resolve('/cars/mileage/1/')
         self.assertEqual(response.status_code, 200)
