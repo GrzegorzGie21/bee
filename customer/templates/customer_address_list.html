@@ -12,7 +12,7 @@ Addresses list
   {% url 'customer:edit-address' object.pk %}
 {% endblock %}
 {% block detail_url %}
-  {% url 'customer:address-detail' object.pk %}
+  {{object.get_absolute_url}}
 {% endblock %}
 {% block delete_url %}
   {% url 'customer:delete-address' object.pk %}
