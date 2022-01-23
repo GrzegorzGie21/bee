@@ -72,8 +72,10 @@ class CarTests(TestCase):
 
     def test_car_detail_view(self):
         response = self.client.get(reverse(self.car.get_absolute_url()))
+        no_response = self.client.get('cars/99/')
         match = resolve('/cars/1/')
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(no_response.status_code, 404)
         self.assertContains(response, 'Honda Civic')
         self.assertTemplateUsed(response, 'car_detail.html')
         self.assertEqual(match.func.__name__, CarDetailView.as_view().__name__)
@@ -95,8 +97,10 @@ class CarTests(TestCase):
 
     def test_mileage_detail_view(self):
         response = self.client.get(self.mileage.get_absolute_url())
+        no_response = self.client.get('cars/mileage/99/')
         match = resolve('/cars/mileage/1/')
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(no_response.status_code, 404)
         self.assertContains(response, 'Honda Civic')
         self.assertContains(response, 'Distance')
         self.assertTemplateUsed(response, 'mileage_detail.html')
