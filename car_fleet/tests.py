@@ -48,7 +48,7 @@ class CarTests(TestCase):
         self.mileage = Mileage.objects.create(distance=100,
                                               start_day_odometer=0,
                                               end_day_odometer=100,
-                                              date=date.today().strftime('%Y-%m-%d'),
+                                              date=date(2022, 1, 23).strftime('%Y-%m-%d'),
                                               car=self.car
                                               )
 
@@ -71,12 +71,12 @@ class CarTests(TestCase):
         self.assertEqual(match.func.__name__, CarListView.as_view().__name__)
 
     def test_car_detail_view(self):
-        response = self.client.get(reverse(self.car.get_absolute_url()))
+        response = self.client.get(self.car.get_absolute_url())
         no_response = self.client.get('cars/99/')
         match = resolve('/cars/1/')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(no_response.status_code, 404)
-        self.assertContains(response, 'Honda Civic')
+        self.assertContains(response, 'NLI42VN')
         self.assertTemplateUsed(response, 'car_detail.html')
         self.assertEqual(match.func.__name__, CarDetailView.as_view().__name__)
 
