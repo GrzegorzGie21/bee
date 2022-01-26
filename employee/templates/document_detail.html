@@ -14,7 +14,7 @@
       <h5 class="card-title">Details:</h5>
       <p class="card-text">Type: {{ document.get_type_display }}</p>
       <p class="card-text">Value: {{ document.cost }} zł</p>
-      <p class="card-text">Employee: {{ document.user.last_name }}</p>
+      <p class="card-text">Employee: {{ document.user }}</p>
       <p class="card-text">Created: {{ document.created_date }}</p>
       <a href="{% url 'employee:edit-document' document.id %}" class="btn btn-sm btn-primary">Edit</a>
       <a href="{% url 'employee:delete-document' document.id %}" class="btn btn-sm btn-danger">Delete</a>
