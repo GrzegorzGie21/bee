@@ -41,6 +41,8 @@ class OrderTests(TestCase):
         response = self.client.get(reverse('order:order-list'))
         match = resolve('/order/')
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(Order.objects.all().count(), 1)
+        self.assertNotEqual(Order.objects.all().count(), 5)
         self.assertContains(response, 'Order list:')
         self.assertNotContains(response, 'Empty page')
         self.assertTemplateUsed(response, 'order_list.html')
