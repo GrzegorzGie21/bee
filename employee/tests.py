@@ -3,7 +3,7 @@ from django.shortcuts import reverse
 from django.urls import resolve
 
 from employee.models import Employee, Document
-from employee.views import EmployeeListView, EmployeeDetailView, DocumentListView, DocumentDetailView
+from employee import views
 from django.contrib.auth import get_user_model
 
 from datetime import date
@@ -34,7 +34,7 @@ class EmployeeTests(TestCase):
         self.assertContains(response, 'Employee list:')
         self.assertNotContains(response, 'Nothing to show')
         self.assertTemplateUsed(response, 'employee_list.html')
-        self.assertEqual(match.func.__name__, EmployeeListView.as_view().__name__)
+        self.assertEqual(match.func.__name__, views.EmployeeListView.as_view().__name__)
 
     def test_employee_detail_view(self):
         response = self.client.get(self.employee.get_absolute_url())
@@ -44,7 +44,7 @@ class EmployeeTests(TestCase):
         self.assertEqual(no_response.status_code, 404)
         self.assertContains(response, 'Work station:')
         self.assertTemplateUsed(response, 'employee_detail.html')
-        self.assertEqual(match.func.__name__, EmployeeDetailView.as_view().__name__)
+        self.assertEqual(match.func.__name__, views.EmployeeDetailView.as_view().__name__)
 
 class DocumentTests(TestCase):
     def setUp(self):
@@ -72,7 +72,7 @@ class DocumentTests(TestCase):
         self.assertContains(response, 'Document list:')
         self.assertNotContains(response, 'Nothing to show')
         self.assertTemplateUsed(response, 'document_list.html')
-        self.assertEqual(match.func.__name__, DocumentListView.as_view().__name__)
+        self.assertEqual(match.func.__name__, views.DocumentListView.as_view().__name__)
 
     def test_document_detail_view(self):
         response = self.client.get(self.document.get_absolute_url())
@@ -82,4 +82,4 @@ class DocumentTests(TestCase):
         self.assertEqual(no_response.status_code, 404)
         self.assertContains(response, 'Type:')
         self.assertTemplateUsed(response, 'document_detail.html')
-        self.assertEqual(match.func.__name__, DocumentDetailView.as_view().__name__)
+        self.assertEqual(match.func.__name__, views.DocumentDetailView.as_view().__name__)

@@ -3,7 +3,7 @@ from django.shortcuts import reverse
 from django.urls import resolve
 from django.contrib.auth import get_user_model
 from employee.views import index
-from car_fleet.views import CarListView, CarDetailView, MileageListView, MileageDetailView
+from car_fleet import views
 from car_fleet.models import Car, Mileage
 from datetime import date
 
@@ -70,7 +70,7 @@ class CarTests(TestCase):
         self.assertNotEqual(Car.objects.all().count(), 3)
         self.assertContains(response, 'Honda Civic')
         self.assertTemplateUsed(response, 'car_list.html')
-        self.assertEqual(match.func.__name__, CarListView.as_view().__name__)
+        self.assertEqual(match.func.__name__, views.CarListView.as_view().__name__)
 
     def test_car_detail_view(self):
         response = self.client.get(self.car.get_absolute_url())
@@ -80,7 +80,7 @@ class CarTests(TestCase):
         self.assertEqual(no_response.status_code, 404)
         self.assertContains(response, 'NLI42VN')
         self.assertTemplateUsed(response, 'car_detail.html')
-        self.assertEqual(match.func.__name__, CarDetailView.as_view().__name__)
+        self.assertEqual(match.func.__name__, views.CarDetailView.as_view().__name__)
 
     def test_mileage_string_representation(self):
         self.assertEqual(f'{self.mileage.distance}', '100')
@@ -97,7 +97,7 @@ class CarTests(TestCase):
         self.assertNotEqual(Mileage.objects.all().count(), 3)
         self.assertContains(response, 'Mileage list')
         self.assertTemplateUsed(response, 'mileage_list.html')
-        self.assertEqual(match.func.__name__, MileageListView.as_view().__name__)
+        self.assertEqual(match.func.__name__, views.MileageListView.as_view().__name__)
 
     def test_mileage_detail_view(self):
         response = self.client.get(self.mileage.get_absolute_url())
@@ -108,4 +108,4 @@ class CarTests(TestCase):
         self.assertContains(response, 'Honda Civic')
         self.assertContains(response, 'Distance')
         self.assertTemplateUsed(response, 'mileage_detail.html')
-        self.assertEqual(match.func.__name__, MileageDetailView.as_view().__name__)
+        self.assertEqual(match.func.__name__, views.MileageDetailView.as_view().__name__)

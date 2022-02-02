@@ -2,7 +2,8 @@ from django.test import TestCase
 from django.shortcuts import reverse
 from django.urls import resolve
 from customer.models import Customer, CustomerAddress
-from customer.views import CustomerListView, CustomerDetailView, CustomerAddressListView, CustomerAddressDetailView
+from customer import views
+
 
 # Create your tests here.
 class CustomerTests(TestCase):
@@ -37,7 +38,7 @@ class CustomerTests(TestCase):
         self.assertContains(response, 'Customers:')
         self.assertNotContains(response, 'Nothing to show')
         self.assertTemplateUsed(response, 'customer_list.html')
-        self.assertEqual(match.func.__name__, CustomerListView.as_view().__name__)
+        self.assertEqual(match.func.__name__, views.CustomerListView.as_view().__name__)
 
     def test_customer_detail_view(self):
         response = self.client.get(self.customer.get_absolute_url())
@@ -47,7 +48,7 @@ class CustomerTests(TestCase):
         self.assertEqual(no_response.status_code, 404)
         self.assertContains(response, 'Customer detail:')
         self.assertTemplateUsed(response, 'customer_detail.html')
-        self.assertEqual(match.func.__name__, CustomerDetailView.as_view().__name__)
+        self.assertEqual(match.func.__name__, views.CustomerDetailView.as_view().__name__)
 
     def test_customer_address_string_representation(self):
         self.assertEqual(f'{self.customer_address.street}', 'Prosta')
@@ -64,7 +65,7 @@ class CustomerTests(TestCase):
         self.assertContains(response, 'Addresses:')
         self.assertNotContains(response, 'Nothing to show')
         self.assertTemplateUsed(response, 'customer_address_list.html')
-        self.assertEqual(match.func.__name__, CustomerAddressListView.as_view().__name__)
+        self.assertEqual(match.func.__name__, views.CustomerAddressListView.as_view().__name__)
 
     def test_customer_address_detail_view(self):
         response = self.client.get(self.customer_address.get_absolute_url())
@@ -74,4 +75,4 @@ class CustomerTests(TestCase):
         self.assertEqual(no_response.status_code, 404)
         self.assertContains(response, 'Address detail:')
         self.assertTemplateUsed(response, 'customer_address_detail.html')
-        self.assertEqual(match.func.__name__, CustomerAddressDetailView.as_view().__name__)
+        self.assertEqual(match.func.__name__, views.CustomerAddressDetailView.as_view().__name__)

@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 
 from order.models import Order, OrderProducts
 from customer.models import Customer, CustomerAddress
-from order.views import OrderListView, OrderDetailView
+from order import views
 
 from datetime import date
 
@@ -46,7 +46,7 @@ class OrderTests(TestCase):
         self.assertContains(response, 'Order list:')
         self.assertNotContains(response, 'Empty page')
         self.assertTemplateUsed(response, 'order_list.html')
-        self.assertEqual(match.func.__name__, OrderListView.as_view().__name__)
+        self.assertEqual(match.func.__name__, views.OrderListView.as_view().__name__)
 
     def test_order_detail_view(self):
         response = self.client.get(self.order.get_absolute_url())
@@ -57,4 +57,4 @@ class OrderTests(TestCase):
         self.assertContains(response, 'Order nr' and 'Products:')
         self.assertNotContains(response, 'Empty page')
         self.assertTemplateUsed(response, 'order_detail.html')
-        self.assertEqual(match.func.__name__, OrderDetailView.as_view().__name__)
+        self.assertEqual(match.func.__name__, views.OrderDetailView.as_view().__name__)
