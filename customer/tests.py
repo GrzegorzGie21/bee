@@ -50,6 +50,34 @@ class CustomerTests(TestCase):
         self.assertTemplateUsed(response, 'customer_detail.html')
         self.assertEqual(match.func.__name__, views.CustomerDetailView.as_view().__name__)
 
+    def test_customer_edit_view(self):
+        response = self.client.get(reverse('customer:edit-customer', args=[self.customer.pk]))
+        no_response = self.client.get('customer/88/edit/')
+        match = resolve('/customer/1/edit/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(no_response.status_code, 404)
+        self.assertContains(response, 'Update customer:')
+        self.assertTemplateUsed(response, 'customer_update.html')
+        self.assertEqual(match.func.__name__, views.CustomerUpdateView.as_view().__name__)
+
+    def test_customer_delete_view(self):
+        response = self.client.get(reverse('customer:delete-customer', args=[self.customer.pk]))
+        no_response = self.client.get('customer/88/delete/')
+        match = resolve('/customer/1/delete/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(no_response.status_code, 404)
+        self.assertContains(response, 'Delete customer:')
+        self.assertTemplateUsed(response, 'customer_delete.html')
+        self.assertEqual(match.func.__name__, views.CustomerDeleteView.as_view().__name__)
+
+    def test_customer_create_view(self):
+        response = self.client.get(reverse('customer:add-customer'))
+        match = resolve('/customer/add/')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Add customer:')
+        self.assertTemplateUsed(response, 'customer_add.html')
+        self.assertEqual(match.func.__name__, views.CustomerAddView.as_view().__name__)
+
     def test_customer_address_string_representation(self):
         self.assertEqual(f'{self.customer_address.street}', 'Prosta')
         self.assertEqual(f'{self.customer_address.street_number}', '1')
@@ -76,3 +104,32 @@ class CustomerTests(TestCase):
         self.assertContains(response, 'Address detail:')
         self.assertTemplateUsed(response, 'customer_address_detail.html')
         self.assertEqual(match.func.__name__, views.CustomerAddressDetailView.as_view().__name__)
+
+
+    def test_customer_address_edit_view(self):
+        response = self.client.get(reverse('customer:edit-address', args=[self.customer_address.pk]))
+        no_response = self.client.get('customer/address/88/edit/')
+        match = resolve('/customer/address/1/edit/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(no_response.status_code, 404)
+        self.assertContains(response, 'Update customer address:')
+        self.assertTemplateUsed(response, 'customer_address_update.html')
+        self.assertEqual(match.func.__name__, views.CustomerAddressUpdateView.as_view().__name__)
+
+    def test_customer_address_delete_view(self):
+        response = self.client.get(reverse('customer:delete-address', args=[self.customer_address.pk]))
+        no_response = self.client.get('customer/address/88/delete/')
+        match = resolve('/customer/address/1/delete/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(no_response.status_code, 404)
+        self.assertContains(response, 'Delete customer address:')
+        self.assertTemplateUsed(response, 'customer_address_delete.html')
+        self.assertEqual(match.func.__name__, views.CustomerAddressDeleteView.as_view().__name__)
+
+    def test_customer_address_create_view(self):
+        response = self.client.get(reverse('customer:add-address'))
+        match = resolve('/customer/address/add/')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Add customer address:')
+        self.assertTemplateUsed(response, 'customer_address_add.html')
+        self.assertEqual(match.func.__name__, views.CustomerAddressAddView.as_view().__name__)
