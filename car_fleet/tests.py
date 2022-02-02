@@ -82,6 +82,34 @@ class CarTests(TestCase):
         self.assertTemplateUsed(response, 'car_detail.html')
         self.assertEqual(match.func.__name__, views.CarDetailView.as_view().__name__)
 
+    def test_car_edit_view(self):
+        response = self.client.get(reverse('car:edit-car', args=[self.car.pk]))
+        no_response = self.client.get('cars/99/edit/')
+        match = resolve('/cars/1/edit/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(no_response.status_code, 404)
+        self.assertContains(response, 'Update car:')
+        self.assertTemplateUsed(response, 'car_update.html')
+        self.assertEqual(match.func.__name__, views.CarUpdateView.as_view().__name__)
+
+    def test_car_delete_view(self):
+        response = self.client.get(reverse('car:delete-car', args=[self.car.pk]))
+        no_response = self.client.get('cars/99/delete/')
+        match = resolve('/cars/1/delete/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(no_response.status_code, 404)
+        self.assertContains(response, 'Delete car:')
+        self.assertTemplateUsed(response, 'car_delete.html')
+        self.assertEqual(match.func.__name__, views.CarDeleteView.as_view().__name__)
+
+    def test_car_create_view(self):
+        response = self.client.get(reverse('car:add-car'))
+        match = resolve('/cars/add/')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Add car:')
+        self.assertTemplateUsed(response, 'car_add.html')
+        self.assertEqual(match.func.__name__, views.CarCreateView.as_view().__name__)
+
     def test_mileage_string_representation(self):
         self.assertEqual(f'{self.mileage.distance}', '100')
         self.assertEqual(f'{self.mileage.start_day_odometer}', '0')
