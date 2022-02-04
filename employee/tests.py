@@ -46,6 +46,35 @@ class EmployeeTests(TestCase):
         self.assertTemplateUsed(response, 'employee_detail.html')
         self.assertEqual(match.func.__name__, views.EmployeeDetailView.as_view().__name__)
 
+    def test_employee_edit_view(self):
+        response = self.client.get(reverse('employee:edit-employee', args=[self.employee.pk]))
+        no_response = self.client.get('employee/88/edit/')
+        match = resolve('/employee/1/edit/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(no_response.status_code, 404)
+        self.assertContains(response, 'Edit employee:')
+        self.assertTemplateUsed(response, 'employee_update.html')
+        self.assertEqual(match.func.__name__, views.EmployeeEditView.as_view().__name__)
+
+    def test_employee_delete_view(self):
+        response = self.client.get(reverse('employee:delete-employee', args=[self.employee.pk]))
+        no_response = self.client.get('/employee/88/delete/')
+        match = resolve('/employee/1/delete/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(no_response.status_code, 404)
+        self.assertContains(response, 'Delete employee:')
+        self.assertTemplateUsed(response, 'employee_delete.html')
+        self.assertEqual(match.func.__name__, views.EmployeeDeleteView.as_view().__name__)
+
+    def test_employee_create_view(self):
+        response = self.client.get(reverse('employee:add-employee'))
+        match = resolve('/employee/add/')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Add employee:')
+        self.assertTemplateUsed(response, 'employee_add.html')
+        self.assertEqual(match.func.__name__, views.EmployeeCreateView.as_view().__name__)
+
+
 class DocumentTests(TestCase):
     def setUp(self):
         self.user = get_user_model().objects.create_user(username='grzegorz',
