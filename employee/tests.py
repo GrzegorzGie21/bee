@@ -112,3 +112,31 @@ class DocumentTests(TestCase):
         self.assertContains(response, 'Type:')
         self.assertTemplateUsed(response, 'document_detail.html')
         self.assertEqual(match.func.__name__, views.DocumentDetailView.as_view().__name__)
+
+    def test_document_edit_view(self):
+        response = self.client.get(reverse('employee:edit-document', args=[self.document.pk]))
+        no_response = self.client.get('epmloyee/document/88/edit/')
+        match = resolve('/employee/document/1/edit/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(no_response.status_code, 404)
+        self.assertContains(response, 'Edit document:')
+        self.assertTemplateUsed(response, 'document_update.html')
+        self.assertEqual(match.func.__name__, views.DocumentEditView.as_view().__name__)
+
+    def test_document_delete_view(self):
+        response = self.client.get(reverse('employee:delete-document', args=[self.document.pk]))
+        no_response = self.client.get('/employee/document/88/delete/')
+        match = resolve('/employee/document/1/delete/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(no_response.status_code, 404)
+        self.assertContains(response, 'Delete document:')
+        self.assertTemplateUsed(response, 'document_delete.html')
+        self.assertEqual(match.func.__name__, views.DocumentDeleteView.as_view().__name__)
+
+    def test_document_create_view(self):
+        response = self.client.get(reverse('employee:add-document'))
+        match = resolve('/employee/document/add/')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Add document:')
+        self.assertTemplateUsed(response, 'document_add.html')
+        self.assertEqual(match.func.__name__, views.DocumentCreateView.as_view().__name__)
