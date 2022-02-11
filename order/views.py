@@ -27,7 +27,8 @@ class OrderDetailView(DetailView):
 
 
 class OrderAddView(PermissionRequiredMixin, CreateView):
-    permission_required = 'order_order_can_add_order'
+    # permission_required = 'order_order_can_add_order'
+    permission_required = 'order.add_order'
     raise_exception = True
     permission_denied_message = 'Permission to this view is required'
     model = Order

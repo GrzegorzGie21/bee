@@ -23,6 +23,8 @@ class PackageTests(TestCase):
         response = self.client.get(reverse('product:package-list'))
         match = resolve('/product/package/')
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(Package.objects.all().count(), 1)
+        self.assertNotEqual(Package.objects.all().count(), 2)
         self.assertContains(response, 'Packages:')
         self.assertNotContains(response, 'This is invalid content')
         self.assertTemplateUsed(response, 'package_list.html')
@@ -38,6 +40,34 @@ class PackageTests(TestCase):
         self.assertNotContains(response, 'This is invalid content')
         self.assertTemplateUsed(response, 'package_detail.html')
         self.assertEqual(match.func.__name__, views.PackageDetailView.as_view().__name__)
+
+    def test_package_edit_view(self):
+        response = self.client.get(reverse('product:edit-package', args=[self.package.pk]))
+        no_response = self.client.get('/product/package/88/edit/')
+        match = resolve('/product/package/1/edit/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(no_response.status_code, 404)
+        self.assertContains(response, 'Edit package')
+        self.assertTemplateUsed(response, 'package_update.html')
+        self.assertEqual(match.func.__name__, views.PackageEditView.as_view().__name__)
+
+    def test_package_delete_view(self):
+        response = self.client.get(reverse('product:delete-package', args=[self.package.pk]))
+        no_response = self.client.get('/product/package/88/delete/')
+        match = resolve('/product/package/1/delete/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(no_response.status_code, 404)
+        self.assertContains(response, 'Delete package')
+        self.assertTemplateUsed(response, 'package_delete.html')
+        self.assertEqual(match.func.__name__, views.PackageDeleteView.as_view().__name__)
+
+    def test_package_create_view(self):
+        response = self.client.get(reverse('product:add-package'))
+        match = resolve('/product/package/add/')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Add package:')
+        self.assertTemplateUsed(response, 'package_add.html')
+        self.assertEqual(match.func.__name__, views.PackageAddView.as_view().__name__)
 
 
 class PromotionTests(TestCase):
@@ -57,6 +87,8 @@ class PromotionTests(TestCase):
         response = self.client.get(reverse('product:promotion-list'))
         match = resolve('/product/promotion/')
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(Promotion.objects.all().count(), 1)
+        self.assertNotEqual(Promotion.objects.all().count(), 2)
         self.assertContains(response, 'Promotion list:')
         self.assertNotContains(response, 'This is invalid content')
         self.assertTemplateUsed(response, 'promotion_list.html')
@@ -72,6 +104,34 @@ class PromotionTests(TestCase):
         self.assertNotContains(response, 'This is invalid content')
         self.assertTemplateUsed(response, 'promotion_detail.html')
         self.assertEqual(match.func.__name__, views.PromotionDetailView.as_view().__name__)
+
+    def test_promotion_edit_view(self):
+        response = self.client.get(reverse('product:edit-promotion', args=[self.promotion.pk]))
+        no_response = self.client.get('/product/promotion/88/edit/')
+        match = resolve('/product/promotion/1/edit/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(no_response.status_code, 404)
+        self.assertContains(response, 'Edit promotion')
+        self.assertTemplateUsed(response, 'promotion_update.html')
+        self.assertEqual(match.func.__name__, views.PromotionEditView.as_view().__name__)
+
+    def test_promotion_delete_view(self):
+        response = self.client.get(reverse('product:delete-promotion', args=[self.promotion.pk]))
+        no_response = self.client.get('/product/promotion/88/delete/')
+        match = resolve('/product/promotion/1/delete/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(no_response.status_code, 404)
+        self.assertContains(response, 'Delete promotion')
+        self.assertTemplateUsed(response, 'promotion_delete.html')
+        self.assertEqual(match.func.__name__, views.PromotionDeleteView.as_view().__name__)
+
+    def test_promotion_create_view(self):
+        response = self.client.get(reverse('product:add-promotion'))
+        match = resolve('/product/promotion/add/')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Add promotion:')
+        self.assertTemplateUsed(response, 'promotion_add.html')
+        self.assertEqual(match.func.__name__, views.PromotionAddView.as_view().__name__)
 
 
 class ProductTests(TestCase):
@@ -100,6 +160,8 @@ class ProductTests(TestCase):
         response = self.client.get(reverse('product:product-list'))
         match = resolve('/product/')
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(Product.objects.all().count(), 1)
+        self.assertNotEqual(Product.objects.all().count(), 2)
         self.assertContains(response, 'Product list:')
         self.assertNotContains(response, 'This is invalid content')
         self.assertTemplateUsed(response, 'product_list.html')
@@ -115,3 +177,31 @@ class ProductTests(TestCase):
         self.assertNotContains(response, 'This is invalid content')
         self.assertTemplateUsed(response, 'product_detail.html')
         self.assertEqual(match.func.__name__, views.ProductDetailView.as_view().__name__)
+
+    def test_product_edit_view(self):
+        response = self.client.get(reverse('product:edit-product', args=[self.product.pk]))
+        no_response = self.client.get('/product/88/edit/')
+        match = resolve('/product/1/edit/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(no_response.status_code, 404)
+        self.assertContains(response, 'Edit product')
+        self.assertTemplateUsed(response, 'product_update.html')
+        self.assertEqual(match.func.__name__, views.ProductUpdateView.as_view().__name__)
+
+    def test_product_delete_view(self):
+        response = self.client.get(reverse('product:delete-product', args=[self.product.pk]))
+        no_response = self.client.get('/product/88/delete/')
+        match = resolve('/product/1/delete/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(no_response.status_code, 404)
+        self.assertContains(response, 'Delete product')
+        self.assertTemplateUsed(response, 'product_delete.html')
+        self.assertEqual(match.func.__name__, views.ProductDeleteView.as_view().__name__)
+
+    def test_product_create_view(self):
+        response = self.client.get(reverse('product:add-product'))
+        match = resolve('/product/add/')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Add product:')
+        self.assertTemplateUsed(response, 'product_add.html')
+        self.assertEqual(match.func.__name__, views.ProductAddView.as_view().__name__)

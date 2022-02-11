@@ -3,7 +3,7 @@ from django.shortcuts import reverse
 from django.urls import resolve
 
 from employee.models import Employee, Document
-from employee.views import EmployeeListView, EmployeeDetailView, DocumentListView, DocumentDetailView
+from employee import views
 from django.contrib.auth import get_user_model
 
 from datetime import date
@@ -29,10 +29,12 @@ class EmployeeTests(TestCase):
         response = self.client.get(reverse('employee:employee-list'))
         match = resolve('/employee/')
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(Employee.objects.all().count(), 1)
+        self.assertNotEqual(Employee.objects.all().count(), 4)
         self.assertContains(response, 'Employee list:')
         self.assertNotContains(response, 'Nothing to show')
         self.assertTemplateUsed(response, 'employee_list.html')
-        self.assertEqual(match.func.__name__, EmployeeListView.as_view().__name__)
+        self.assertEqual(match.func.__name__, views.EmployeeListView.as_view().__name__)
 
     def test_employee_detail_view(self):
         response = self.client.get(self.employee.get_absolute_url())
@@ -42,7 +44,36 @@ class EmployeeTests(TestCase):
         self.assertEqual(no_response.status_code, 404)
         self.assertContains(response, 'Work station:')
         self.assertTemplateUsed(response, 'employee_detail.html')
-        self.assertEqual(match.func.__name__, EmployeeDetailView.as_view().__name__)
+        self.assertEqual(match.func.__name__, views.EmployeeDetailView.as_view().__name__)
+
+    def test_employee_edit_view(self):
+        response = self.client.get(reverse('employee:edit-employee', args=[self.employee.pk]))
+        no_response = self.client.get('employee/88/edit/')
+        match = resolve('/employee/1/edit/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(no_response.status_code, 404)
+        self.assertContains(response, 'Edit employee:')
+        self.assertTemplateUsed(response, 'employee_update.html')
+        self.assertEqual(match.func.__name__, views.EmployeeEditView.as_view().__name__)
+
+    def test_employee_delete_view(self):
+        response = self.client.get(reverse('employee:delete-employee', args=[self.employee.pk]))
+        no_response = self.client.get('/employee/88/delete/')
+        match = resolve('/employee/1/delete/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(no_response.status_code, 404)
+        self.assertContains(response, 'Delete employee:')
+        self.assertTemplateUsed(response, 'employee_delete.html')
+        self.assertEqual(match.func.__name__, views.EmployeeDeleteView.as_view().__name__)
+
+    def test_employee_create_view(self):
+        response = self.client.get(reverse('employee:add-employee'))
+        match = resolve('/employee/add/')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Add employee:')
+        self.assertTemplateUsed(response, 'employee_add.html')
+        self.assertEqual(match.func.__name__, views.EmployeeCreateView.as_view().__name__)
+
 
 class DocumentTests(TestCase):
     def setUp(self):
@@ -65,10 +96,12 @@ class DocumentTests(TestCase):
         response = self.client.get(reverse('employee:document-list'))
         match = resolve('/employee/document/')
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(Document.objects.all().count(), 1)
+        self.assertNotEqual(Document.objects.all().count(), 4)
         self.assertContains(response, 'Document list:')
         self.assertNotContains(response, 'Nothing to show')
         self.assertTemplateUsed(response, 'document_list.html')
-        self.assertEqual(match.func.__name__, DocumentListView.as_view().__name__)
+        self.assertEqual(match.func.__name__, views.DocumentListView.as_view().__name__)
 
     def test_document_detail_view(self):
         response = self.client.get(self.document.get_absolute_url())
@@ -78,4 +111,32 @@ class DocumentTests(TestCase):
         self.assertEqual(no_response.status_code, 404)
         self.assertContains(response, 'Type:')
         self.assertTemplateUsed(response, 'document_detail.html')
-        self.assertEqual(match.func.__name__, DocumentDetailView.as_view().__name__)
+        self.assertEqual(match.func.__name__, views.DocumentDetailView.as_view().__name__)
+
+    def test_document_edit_view(self):
+        response = self.client.get(reverse('employee:edit-document', args=[self.document.pk]))
+        no_response = self.client.get('epmloyee/document/88/edit/')
+        match = resolve('/employee/document/1/edit/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(no_response.status_code, 404)
+        self.assertContains(response, 'Edit document:')
+        self.assertTemplateUsed(response, 'document_update.html')
+        self.assertEqual(match.func.__name__, views.DocumentEditView.as_view().__name__)
+
+    def test_document_delete_view(self):
+        response = self.client.get(reverse('employee:delete-document', args=[self.document.pk]))
+        no_response = self.client.get('/employee/document/88/delete/')
+        match = resolve('/employee/document/1/delete/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(no_response.status_code, 404)
+        self.assertContains(response, 'Delete document:')
+        self.assertTemplateUsed(response, 'document_delete.html')
+        self.assertEqual(match.func.__name__, views.DocumentDeleteView.as_view().__name__)
+
+    def test_document_create_view(self):
+        response = self.client.get(reverse('employee:add-document'))
+        match = resolve('/employee/document/add/')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Add document:')
+        self.assertTemplateUsed(response, 'document_add.html')
+        self.assertEqual(match.func.__name__, views.DocumentCreateView.as_view().__name__)
