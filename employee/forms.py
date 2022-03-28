@@ -1,11 +1,11 @@
 from django import forms
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.core.validators import EmailValidator
 
 
 def if_user_exists(login):
-    if User.objects.filter(username=login).exists():
+    if get_user_model().objects.filter(username=login).exists():
         raise ValidationError('Taki użytkownik już istnieje')
 
 
