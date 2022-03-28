@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.shortcuts import reverse
 
 
@@ -11,7 +11,7 @@ class Car(models.Model):
     manufacture_year = models.PositiveSmallIntegerField()
     engine_power = models.PositiveSmallIntegerField(help_text='Power is measured in horse power')
     engine_size = models.DecimalField(max_digits=2, decimal_places=1, help_text='Size is measured in cm3')
-    user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
+    user = models.OneToOneField(get_user_model(), on_delete=models.SET_NULL, null=True)
     odometer = models.PositiveIntegerField(default=0)
 
     # tutaj nadpisanie funckcji save(), ktora mi zaktualizuje odometer

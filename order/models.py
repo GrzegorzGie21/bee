@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.shortcuts import reverse
 from django.db.models import Sum
 
@@ -8,7 +8,7 @@ class Order(models.Model):
     number = models.CharField(max_length=20, default='0')
     date = models.DateField()
     products = models.ManyToManyField('product.Product', through='OrderProducts')
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     customer = models.ForeignKey('customer.Customer', default='Customer does not exist', on_delete=models.SET_DEFAULT)
 
     # nadpisać metodę save(). która mi zaaktualizuje number
