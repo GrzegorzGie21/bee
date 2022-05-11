@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     #Third-party-apps
     'crispy_forms',
     #My apps
+    'accounts',
     'car_fleet',
     'customer',
     'employee',
@@ -133,3 +134,5 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+AUTH_USER_MODEL = 'accounts.CustomUser'
