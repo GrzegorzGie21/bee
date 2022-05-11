@@ -12,7 +12,7 @@ def has_email_valid_domain(email):
     return email
 
 
-class CreateUserAdminForm(forms.ModelForm):
+class CreateUserForm(forms.ModelForm):
     email = forms.EmailField(validators=[has_email_valid_domain])
     password = forms.CharField(widget=forms.PasswordInput)
     password_confirm = forms.CharField(label='Confirm Password', widget=forms.PasswordInput)

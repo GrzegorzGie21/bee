@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block page_title %}
+  Registration
+{% endblock %}
+{% block content %}
+  {% block content_title %}
+    Registration process
+  {% endblock %}
+  <form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input class="btn btn-dark" type="submit" value="Add employee">
+  </form>
+{% endblock %}
+
